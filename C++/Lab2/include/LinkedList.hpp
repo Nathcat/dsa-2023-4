@@ -493,19 +493,19 @@ public:
         return item;
     }
 
-    void reverse_for_each((*f)(int, T*)) {
+    void reverse_for_each(void (*f)(int, T*)) {
         DoubleNode<T>* current_node = this->last_node;
 
-        for (int i = length - 1; i >= 0; i--) {
+        for (int i = this->length - 1; i >= 0; i--) {
             f(i, current_node->data);
             current_node = current_node->prev;
         }
     }
 
-    void reverse_for_each((*f)(int, DoubleNode<T>*)) {
+    void reverse_for_each(void (*f)(int, DoubleNode<T>*)) {
         DoubleNode<T>* current_node = this->last_node;
 
-        for (int i = length - 1; i >= 0; i--) {
+        for (int i = this->length - 1; i >= 0; i--) {
             f(i, current_node);
             current_node = current_node->prev;
         }
