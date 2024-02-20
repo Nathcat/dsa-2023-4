@@ -1,0 +1,55 @@
+cmake_minimum_required(VERSION 3.11.2)
+
+#
+#   DSALabs-2024
+#   Compile all labs to a single shared library
+#
+project(DSALabs-2024)
+
+add_library(DSALabs-2024 SHARED
+    # Lab 2 sources
+    Lab2/include/LinkedList.hpp
+
+    # Lab 3 sources
+    Lab3/include/CircularDynamicArrayList.hpp
+)
+
+target_include_directories(DSALabs-2024 PUBLIC
+    Lab2/include
+    Lab3/include
+)
+
+set_target_properties(DSALabs-2024 PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY build
+    LINKER_LANGUAGE CXX
+)
+
+#
+#   Lab 2 tests
+#   Compile lab 2 tests executable
+#
+project(DSALab2)
+
+add_executable(DSALab2 Lab2/src/test.cpp)
+
+target_include_directories(DSALab2 PUBLIC Lab2/include)
+target_link_libraries(DSALab2 DSALabs-2024)
+
+set_target_properties(DSALab2 PROPERTIES
+    RUNTIME_OUTPUT_DIRECTORY Lab2/build
+)
+
+#
+#   Lab 3 tests
+#   Compile lab 3 tests executable
+#
+project(DSALab3)
+
+add_executable(DSALab3 Lab3/src/test.cpp)
+
+target_include_directories(DSALab3 PUBLIC Lab3/include)
+target_link_libraries(DSALab3 DSALabs-2024)
+
+set_target_properties(DSALab3 PROPERTIES
+    RUNTIME_OUTPUT_DIRECTORY Lab3/build
+)

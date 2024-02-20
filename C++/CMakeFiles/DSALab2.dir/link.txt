@@ -1,0 +1,1 @@
+/usr/bin/c++ CMakeFiles/DSALab2.dir/Lab2/src/test.cpp.o -o Lab2/build/DSALab2  -Wl,-rpath,/media/nathcat/Data/Projects/C++/DSA-Labs/build build/libDSALabs-2024.so 

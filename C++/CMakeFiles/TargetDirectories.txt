@@ -1,0 +1,5 @@
+/media/nathcat/Data/Projects/C++/DSA-Labs/CMakeFiles/DSALabs-2024.dir
+/media/nathcat/Data/Projects/C++/DSA-Labs/CMakeFiles/DSALab2.dir
+/media/nathcat/Data/Projects/C++/DSA-Labs/CMakeFiles/DSALab3.dir
+/media/nathcat/Data/Projects/C++/DSA-Labs/CMakeFiles/edit_cache.dir
+/media/nathcat/Data/Projects/C++/DSA-Labs/CMakeFiles/rebuild_cache.dir
