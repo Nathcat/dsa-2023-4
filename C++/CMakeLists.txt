@@ -11,7 +11,9 @@ add_library(DSALabs-2024 SHARED
     Lab2/include/LinkedList.hpp
 
     # Lab 3 sources
+    Lab3/include/DynamicArrayList.hpp
     Lab3/include/CircularDynamicArrayList.hpp
+    Lab3/include/LinkedStack.hpp
 )
 
 target_include_directories(DSALabs-2024 PUBLIC
@@ -32,7 +34,7 @@ project(DSALab2)
 
 add_executable(DSALab2 Lab2/src/test.cpp)
 
-target_include_directories(DSALab2 PUBLIC Lab2/include)
+target_include_directories(DSALab2 PUBLIC Lab2/include Testing/include)
 target_link_libraries(DSALab2 DSALabs-2024)
 
 set_target_properties(DSALab2 PROPERTIES
@@ -47,7 +49,7 @@ project(DSALab3)
 
 add_executable(DSALab3 Lab3/src/test.cpp)
 
-target_include_directories(DSALab3 PUBLIC Lab3/include)
+target_include_directories(DSALab3 PUBLIC Lab3/include Testing/include)
 target_link_libraries(DSALab3 DSALabs-2024)
 
 set_target_properties(DSALab3 PROPERTIES
