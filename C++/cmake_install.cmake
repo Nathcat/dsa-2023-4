@@ -1,4 +1,4 @@
-# Install script for directory: /media/nathcat/Data/Projects/C++/DSA-Labs
+# Install script for directory: /media/nathcat/Data/Projects/GitHub/dsa-2023-4/C++
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -50,5 +50,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/media/nathcat/Data/Projects/C++/DSA-Labs/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/media/nathcat/Data/Projects/GitHub/dsa-2023-4/C++/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

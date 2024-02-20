@@ -3,7 +3,7 @@
 
 int main() {
     int items[] = {1, 2, 3, 4};
-    SinglyLinkedList<int>* list = SinglyLinkedList<int>::build(items, 4);
+    DoublyLinkedList<int>* list = DoublyLinkedList<int>::build(items, 4);
 
     list->for_each([](int index, int* item) {
         std::cout << index << ": " << *item << std::endl;

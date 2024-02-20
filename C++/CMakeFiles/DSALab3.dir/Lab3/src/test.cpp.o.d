@@ -1,5 +1,5 @@
 CMakeFiles/DSALab3.dir/Lab3/src/test.cpp.o: \
- /media/nathcat/Data/Projects/C++/DSA-Labs/Lab3/src/test.cpp \
+ /media/nathcat/Data/Projects/GitHub/dsa-2023-4/C++/Lab3/src/test.cpp \
  /usr/include/stdc-predef.h /usr/include/stdio.h \
  /usr/include/x86_64-linux-gnu/bits/libc-header-start.h \
  /usr/include/features.h /usr/include/features-time64.h \
@@ -24,7 +24,7 @@ CMakeFiles/DSALab3.dir/Lab3/src/test.cpp.o: \
  /usr/include/x86_64-linux-gnu/bits/stdio_lim.h \
  /usr/include/x86_64-linux-gnu/bits/floatn.h \
  /usr/include/x86_64-linux-gnu/bits/floatn-common.h \
- /media/nathcat/Data/Projects/C++/DSA-Labs/Lab3/include/CircularDynamicArrayList.hpp \
+ /media/nathcat/Data/Projects/GitHub/dsa-2023-4/C++/Lab3/include/CircularDynamicArrayList.hpp \
  /usr/include/c++/11/stdlib.h /usr/include/c++/11/cstdlib \
  /usr/include/x86_64-linux-gnu/c++/11/bits/c++config.h \
  /usr/include/x86_64-linux-gnu/c++/11/bits/os_defines.h \

@@ -1,7 +1,7 @@
 CMakeFiles/DSALab2.dir/Lab2/src/test.cpp.o: \
- /media/nathcat/Data/Projects/C++/DSA-Labs/Lab2/src/test.cpp \
+ /media/nathcat/Data/Projects/GitHub/dsa-2023-4/C++/Lab2/src/test.cpp \
  /usr/include/stdc-predef.h \
- /media/nathcat/Data/Projects/C++/DSA-Labs/Lab2/include/LinkedList.hpp \
+ /media/nathcat/Data/Projects/GitHub/dsa-2023-4/C++/Lab2/include/LinkedList.hpp \
  /usr/include/c++/11/iostream \
  /usr/include/x86_64-linux-gnu/c++/11/bits/c++config.h \
  /usr/include/x86_64-linux-gnu/c++/11/bits/os_defines.h \

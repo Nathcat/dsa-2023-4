@@ -1,6 +1,8 @@
 #ifndef LINKEDLIST_H
 #define LINKEDLIST_H
 
+#include <iostream>
+
 /// @brief A Linked List node.
 /// @tparam T The data type contained by the node.
 template <class T>
@@ -9,6 +11,12 @@ class Node
 public:
     T *data;
     Node<T> *next;
+
+    Node()
+    {
+        data = nullptr;
+        next = nullptr;
+    }
 
     Node(T *data, Node<T> *next)
     {
@@ -27,7 +35,8 @@ public:
 
     DoubleNode(T *data, Node<T> *prev, Node<T> *next)
     {
-        base(data, next);
+        this->data = data;
+        this->next = next;
         this->prev = prev;
     }
 };
@@ -331,6 +340,156 @@ public:
         T *item = ((LinkedList<T> *)this)->last_node->data;
         this->get_node_at(((LinkedList<T> *)this)->length - 2)->next = nullptr;
         ((LinkedList<T> *)this)->length--;
+        return item;
+    }
+};
+
+/// @brief Class containing a doubly linked list.
+/// @tparam T The type contained by the list.
+template <class T>
+class DoublyLinkedList : public LinkedList<T>
+{
+public:
+    /// @brief Build a doubly linked list from an existing array of items.
+    /// @param items The array of items
+    /// @param length The length of the array
+    /// @return A doubly linked list containing all the items from the given array, retaining the original ordering of the items.
+    static DoublyLinkedList<T> *build(T *items, int length)
+    {
+        std::cout << "Building list" << std::endl;
+        DoublyLinkedList<T> *list = new DoublyLinkedList<T>();
+        for (int i = 0; i < length; i++)
+        {
+            std::cout << "Inserting " << i << std::endl;
+            list->insert_last(items + i);
+        }
+
+        return list;
+    }
+
+    /// @brief Reconstruct this list to contain only one item.
+    /// @param sole_item The only item that the list should contain.
+    void make_singleton(T *sole_item)
+    {
+        DoubleNode<T> *node = new DoubleNode<T>(sole_item, nullptr, nullptr);
+        this->first_node = node;
+        this->last_node = node;
+        this->length = 1;
+    }
+
+    /// @brief Insert an item to the front of the array
+    /// @param item The item to insert
+    void insert_first(T *item)
+    {
+        if (this->is_empty()) {
+            this->make_singleton(item);
+            return;
+        }
+
+        DoubleNode<T> *node = new DoubleNode<T>(item, nullptr, this->first_node);
+        ((DoubleNode<T>*) this->first_node)->prev = node;
+        this->first_node = node;
+        this->length++;
+    }
+
+    /// @brief Insert an item to the given index in the list.
+    /// @param item The item to insert
+    /// @param index The index to insert the item at
+    void insert_at(int index, T *item)
+    {
+        if (index == 0) {
+            this->insert_first(item);
+            return;
+        }
+        else if (index == this->length) {
+            this->insert_last(item);
+        }
+
+        DoubleNode<T> *current_node = ((DoubleNode<T>*) this->first_node);
+        int i = 0;
+        while (current_node != nullptr && i != index)
+        {
+            current_node = (DoubleNode<T> *)((DoubleNode<T> *)current_node)->next;
+            i++;
+        }
+
+        if (i == index)
+        {
+            DoubleNode<T> *node = new DoubleNode<T>(item, current_node->prev, current_node->next);
+            current_node->prev->next = node;
+            current_node->prev = node;
+            this->length++;
+        }
+
+        // Else index is not in the range of the list
+    }
+
+    /// @brief Insert an item to the end of the list
+    /// @param item The item to insert
+    void insert_last(T *item)
+    {
+        if (this->is_empty()) {
+            this->make_singleton(item);
+            return;
+        }
+
+        DoubleNode<T> *node = new DoubleNode<T>(item, this->last_node, nullptr);
+        this->last_node->next = node;
+        this->last_node = node;
+        this->length++;
+    }
+
+    /// @brief Remove the first item in the list
+    /// @return The item which was removed
+    T *remove_first()
+    {
+        T *item = this->first_node->data;
+        ((DoubleNode<T>*) this->first_node)->prev = nullptr;
+        this->first_node = (DoubleNode<T> *)((DoubleNode<T> *)this->first_node)->next;
+        this->length--;
+        return item;
+    }
+
+    /// @brief Remove the item at the given index
+    /// @param index The index to remove
+    /// @return The item which was removed
+    T *remove_at(int index)
+    {
+        if (index == 0) {
+            return this->remove_first();
+        }
+        else if (index == this->length - 1) {
+            return this->remove_last();
+        }
+
+        DoubleNode<T> *current_node = (DoubleNode<T>*) this->first_node;
+        int i = 0;
+        while (current_node != nullptr && i != index)
+        {
+            current_node = (DoubleNode<T> *)((DoubleNode<T> *)current_node)->next;
+            i++;
+        }
+
+        if (i == index)
+        {
+            T *item = current_node->data;
+            current_node->prev->next = current_node->next;
+            this->length--;
+            return item;
+        }
+
+        // Else index is not in the range of the list
+        return nullptr;
+    }
+
+    /// @brief Remove the last item in the list
+    /// @return The item which was removed
+    T *remove_last()
+    {
+        T *item = this->last_node->data;
+        ((DoubleNode<T>*) this->last_node)->prev->next = nullptr;
+        this->last_node = (DoubleNode<T> *)((DoubleNode<T> *)this->last_node)->prev;
+        this->length--;
         return item;
     }
 };
