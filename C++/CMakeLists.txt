@@ -14,6 +14,7 @@ add_library(DSALabs-2024 SHARED
     Lab3/include/DynamicArrayList.hpp
     Lab3/include/CircularDynamicArrayList.hpp
     Lab3/include/LinkedStack.hpp
+    Lab3/include/ArrayStack.hpp
 )
 
 target_include_directories(DSALabs-2024 PUBLIC

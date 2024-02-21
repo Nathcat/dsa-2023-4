@@ -152,4 +152,5 @@ CMakeFiles/DSALab3.dir/Lab3/src/test.cpp.o: \
  /media/nathcat/Data/Projects/GitHub/dsa-2023-4/C++/Lab3/include/DynamicArrayList.hpp \
  /usr/include/c++/11/stdlib.h /usr/include/c++/11/cstring \
  /usr/include/string.h /usr/include/strings.h \
+ /media/nathcat/Data/Projects/GitHub/dsa-2023-4/C++/Lab3/include/ArrayStack.hpp \
  /media/nathcat/Data/Projects/GitHub/dsa-2023-4/C++/Testing/include/Testing.hpp

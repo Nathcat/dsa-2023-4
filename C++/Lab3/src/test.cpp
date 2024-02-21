@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <LinkedStack.hpp>
 #include <DynamicArrayList.hpp>
+#include <ArrayStack.hpp>
 #include <iostream>
 #include <Testing.hpp>
 
@@ -146,10 +147,87 @@ void dynamic_array_test() {
     }, is_eq);
 }
 
+void array_stack_test() {
+    //  =================
+    //  Array Stack Tests
+    //  =================
+    std::cout << "\n\n\t=================\n\tArray Stack Tests\n\t=================\n";
+
+    test<int>("Push then get length", []() {
+        int items[] = {1, 2, 3, 4};
+        ArrayStack<int>* stack = ArrayStack<int>::build(items, 4);
+        int length = stack->get_length();
+        stack->push(5);
+        return create_pair(length + 1, stack->get_length());
+    }, is_eq);
+
+    test<int>("Push then peek", []() {
+        int items[] = {1, 2, 3, 4};
+        ArrayStack<int>* stack = ArrayStack<int>::build(items, 4);
+        stack->push(5);
+        return create_pair(5, stack->peek());
+    }, is_eq);
+
+    test<int>("Push then pop", []() {
+        int items[] = {1, 2, 3, 4};
+        ArrayStack<int>* stack = ArrayStack<int>::build(items, 4);
+        stack->push(5);
+        return create_pair(5, stack->pop());
+    }, is_eq);
+
+    test<int>("Peek on empty stack", []() {
+        ArrayStack<int>* stack = new ArrayStack<int>();
+        try {
+            stack->peek();
+        } catch (int err) {
+            return create_pair(ArrayStack<int>::STACK_IS_EMPTY, err);
+        }
+
+        return create_pair(0, -1);
+    }, is_eq);
+
+    test<int>("Peek then get length", []() {
+        int items[] = {1, 2, 3, 4};
+        ArrayStack<int>* stack = ArrayStack<int>::build(items, 4);
+        int length = stack->get_length();
+        stack->peek();
+        return create_pair(length, stack->get_length());
+    }, is_eq);
+
+    test<int>("Peek then pop", []() {
+        int items[] = {1, 2, 3, 4};
+        ArrayStack<int>* stack = ArrayStack<int>::build(items, 4);
+        int peek = stack->peek();
+        int pop = stack->pop();
+        return create_pair(peek, pop);
+    }, is_eq);
+
+    test<int>("Pop on empty stack", []() {
+        ArrayStack<int>* stack = new ArrayStack<int>();
+        try {
+            stack->pop();
+        } catch (int err) {
+            return create_pair(ArrayStack<int>::STACK_IS_EMPTY, err);
+        }
+
+        return create_pair(0, -1);
+    }, is_eq);
+
+    test<int>("Pop then get length", []() {
+        int items[] = {1, 2, 3, 4};
+        ArrayStack<int>* stack = ArrayStack<int>::build(items, 4);
+        int length = stack->get_length();
+        stack->pop();
+        return create_pair(length - 1, stack->get_length());
+    }, is_eq);
+}
+
 int main() {
     linked_stack_test();
 
     dynamic_array_test();
+
+    array_stack_test();
 
     return 0;
 }
