@@ -15,11 +15,15 @@ add_library(DSALabs-2024 SHARED
     Lab3/include/CircularDynamicArrayList.hpp
     Lab3/include/LinkedStack.hpp
     Lab3/include/ArrayStack.hpp
+    
+    # Lab 4 sources
+    Lab4/include/BinarySearch.hpp
 )
 
 target_include_directories(DSALabs-2024 PUBLIC
     Lab2/include
     Lab3/include
+    Lab4/include
 )
 
 set_target_properties(DSALabs-2024 PROPERTIES
@@ -55,4 +59,19 @@ target_link_libraries(DSALab3 DSALabs-2024)
 
 set_target_properties(DSALab3 PROPERTIES
     RUNTIME_OUTPUT_DIRECTORY Lab3/build
+)
+
+#
+#   Lab 4 tests
+#   Compile lab 4 tests executable
+#
+project(DSALab4)
+
+add_executable(DSALab4 Lab4/src/test.cpp)
+
+target_include_directories(DSALab4 PUBLIC Lab4/include Testing/include)
+target_link_libraries(DSALab4 DSALabs-2024)
+
+set_target_properties(DSALab4 PROPERTIES
+    RUNTIME_OUTPUT_DIRECTORY Lab4/build
 )

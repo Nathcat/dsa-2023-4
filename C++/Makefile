@@ -155,6 +155,19 @@ DSALab3/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/DSALab3.dir/build.make CMakeFiles/DSALab3.dir/build
 .PHONY : DSALab3/fast
 
+#=============================================================================
+# Target rules for targets named DSALab4
+
+# Build rule for target.
+DSALab4: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 DSALab4
+.PHONY : DSALab4
+
+# fast build rule for target.
+DSALab4/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/DSALab4.dir/build.make CMakeFiles/DSALab4.dir/build
+.PHONY : DSALab4/fast
+
 Lab2/src/test.o: Lab2/src/test.cpp.o
 .PHONY : Lab2/src/test.o
 
@@ -203,6 +216,30 @@ Lab3/src/test.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/DSALab3.dir/build.make CMakeFiles/DSALab3.dir/Lab3/src/test.cpp.s
 .PHONY : Lab3/src/test.cpp.s
 
+Lab4/src/test.o: Lab4/src/test.cpp.o
+.PHONY : Lab4/src/test.o
+
+# target to build an object file
+Lab4/src/test.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/DSALab4.dir/build.make CMakeFiles/DSALab4.dir/Lab4/src/test.cpp.o
+.PHONY : Lab4/src/test.cpp.o
+
+Lab4/src/test.i: Lab4/src/test.cpp.i
+.PHONY : Lab4/src/test.i
+
+# target to preprocess a source file
+Lab4/src/test.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/DSALab4.dir/build.make CMakeFiles/DSALab4.dir/Lab4/src/test.cpp.i
+.PHONY : Lab4/src/test.cpp.i
+
+Lab4/src/test.s: Lab4/src/test.cpp.s
+.PHONY : Lab4/src/test.s
+
+# target to generate assembly for a file
+Lab4/src/test.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/DSALab4.dir/build.make CMakeFiles/DSALab4.dir/Lab4/src/test.cpp.s
+.PHONY : Lab4/src/test.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -213,6 +250,7 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... DSALab2"
 	@echo "... DSALab3"
+	@echo "... DSALab4"
 	@echo "... DSALabs-2024"
 	@echo "... Lab2/src/test.o"
 	@echo "... Lab2/src/test.i"
@@ -220,6 +258,9 @@ help:
 	@echo "... Lab3/src/test.o"
 	@echo "... Lab3/src/test.i"
 	@echo "... Lab3/src/test.s"
+	@echo "... Lab4/src/test.o"
+	@echo "... Lab4/src/test.i"
+	@echo "... Lab4/src/test.s"
 .PHONY : help
 
 
