@@ -3,7 +3,7 @@ Data Structures & Algorithms
 
 Lab 4: Sorting & Array Maps
 
-Unsorted Array Maps Exercise
+Unsorted Array Maps Solution
 """
 
 from collections.abc import Iterator
@@ -128,7 +128,13 @@ class UnsortedArrayMap(Base[Key, Value]):
         :parameter key: the key
         :parameter new_value: the new value that that key should map to
         """
-        raise NotImplementedError
+        mapping = key, new_value
+        for index in range(self.get_length()):
+            contained_key, contained_value = self._array_list.get_at(index)
+            if key == contained_key:
+                self._array_list.set_at(index, mapping)
+                return
+        self._array_list.insert_last(mapping)
 
     def remove(self, key: Key) -> Value:
         """
@@ -144,7 +150,12 @@ class UnsortedArrayMap(Base[Key, Value]):
         :returns: the corresponding value
         :raises KeyError: if the key was not in the map
         """
-        raise NotImplementedError
+        for index in range(self.get_length()):
+            contained_key, contained_value = self._array_list.get_at(index)
+            if key == contained_key:
+                self._array_list.remove_at(index)
+                return contained_value
+        raise KeyError
 
     def iterator(self) -> Iterator[tuple[Key, Value]]:
         """
