@@ -182,8 +182,23 @@ CMakeFiles/DSALab4.dir/Lab4/src/test.cpp.o: Lab4/src/test.cpp \
   /usr/include/c++/11/istream \
   /usr/include/c++/11/bits/istream.tcc \
   Testing/include/Testing.hpp \
-  Lab4/include/BinarySearch.hpp
+  Lab4/include/BinarySearch.hpp \
+  Lab4/include/InsertionSort.hpp \
+  Lab4/include/MergeSort.hpp \
+  /usr/include/c++/11/cstring \
+  /usr/include/string.h \
+  /usr/include/strings.h \
+  /usr/include/c++/11/stdlib.h \
+  Lab4/include/SelectionSort.hpp \
+  Lab4/include/ArrayMap.hpp \
+  Lab2/include/StaticArrayList.hpp
 
+
+/usr/include/c++/11/stdlib.h:
+
+/usr/include/string.h:
+
+/usr/include/c++/11/cstring:
 
 Lab4/include/BinarySearch.hpp:
 
@@ -279,6 +294,8 @@ Lab4/include/BinarySearch.hpp:
 
 /usr/include/c++/11/typeinfo:
 
+Lab4/include/MergeSort.hpp:
+
 /usr/include/x86_64-linux-gnu/bits/cpu-set.h:
 
 /usr/include/c++/11/bits/exception_defines.h:
@@ -324,6 +341,8 @@ Lab4/include/BinarySearch.hpp:
 /usr/include/x86_64-linux-gnu/asm/errno.h:
 
 /usr/include/x86_64-linux-gnu/bits/types/struct_timeval.h:
+
+Lab4/include/InsertionSort.hpp:
 
 /usr/include/c++/11/ostream:
 
@@ -411,6 +430,8 @@ Lab4/src/test.cpp:
 
 /usr/include/c++/11/bits/postypes.h:
 
+Lab2/include/StaticArrayList.hpp:
+
 /usr/include/x86_64-linux-gnu/bits/timex.h:
 
 /usr/include/c++/11/exception:
@@ -418,6 +439,8 @@ Lab4/src/test.cpp:
 /usr/include/x86_64-linux-gnu/c++/11/bits/cpu_defines.h:
 
 /usr/include/x86_64-linux-gnu/bits/timesize.h:
+
+Lab4/include/ArrayMap.hpp:
 
 /usr/lib/gcc/x86_64-linux-gnu/11/include/stdarg.h:
 
@@ -456,6 +479,8 @@ Lab4/src/test.cpp:
 /usr/include/c++/11/debug/debug.h:
 
 /usr/include/c++/11/bits/predefined_ops.h:
+
+Lab4/include/SelectionSort.hpp:
 
 /usr/include/c++/11/cstdint:
 
@@ -518,6 +543,8 @@ Lab4/src/test.cpp:
 /usr/include/x86_64-linux-gnu/bits/thread-shared-types.h:
 
 /usr/include/x86_64-linux-gnu/bits/struct_mutex.h:
+
+/usr/include/strings.h:
 
 /usr/lib/gcc/x86_64-linux-gnu/11/include/stddef.h:
 

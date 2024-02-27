@@ -9,6 +9,7 @@ project(DSALabs-2024)
 add_library(DSALabs-2024 SHARED
     # Lab 2 sources
     Lab2/include/LinkedList.hpp
+    Lab2/include/StaticArrayList.hpp
 
     # Lab 3 sources
     Lab3/include/DynamicArrayList.hpp
@@ -18,6 +19,10 @@ add_library(DSALabs-2024 SHARED
     
     # Lab 4 sources
     Lab4/include/BinarySearch.hpp
+    Lab4/include/InsertionSort.hpp
+    Lab4/include/MergeSort.hpp
+    Lab4/include/SelectionSort.hpp
+    Lab4/include/ArrayMap.hpp
 )
 
 target_include_directories(DSALabs-2024 PUBLIC
