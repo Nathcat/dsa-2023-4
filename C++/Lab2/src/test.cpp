@@ -47,8 +47,9 @@ int main() {
 
     std::cout << std::endl << "Remove last x2" << std::endl;
 
-    list->remove_last();
-    list->remove_last();
+    int* v;
+    list->remove_last(&v);
+    list->remove_last(&v);
 
     list->for_each([](int index, int item) {
         std::cout << index << ": " << item << std::endl;
@@ -57,8 +58,8 @@ int main() {
 
     std::cout << std::endl << "Remove first x2" << std::endl;
 
-    list->remove_first();
-    list->remove_first();
+    list->remove_first(&v);
+    list->remove_first(&v);
 
     list->for_each([](int index, int item) {
         std::cout << index << ": " << item << std::endl;
@@ -67,7 +68,7 @@ int main() {
 
     std::cout << std::endl << "Remove 1" << std::endl;
 
-    list->remove_at(1);
+    list->remove_at(1, &v);
 
     list->for_each([](int index, int item) {
         std::cout << index << ": " << item << std::endl;

@@ -1,6 +1,8 @@
 #ifndef TESTING_H
 #define TESTING_H
 
+#include <iostream>
+
 template <class T>
 struct ValuePair {
     T a;
@@ -42,16 +44,20 @@ template <class T>
 void test(const char* name, struct ValuePair<T> (*test_func)(), int (*assertion)(struct ValuePair<T>)) {
     std::cout << "========== Test ==========" << std::endl << "Name: " << name << std::endl;
     
-    struct ValuePair<T> values = test_func();
+    try {
+        struct ValuePair<T> values = test_func();
 
-    if (assertion(values)) {
-        std::cout << "\033[1;32mPassed\033[0m ";
-    }
-    else {
-        std::cout << "\033[1;31mFailed\033[0m ";
-    }
+        if (assertion(values)) {
+            std::cout << "\033[1;32mPassed\033[0m ";
+        }
+        else {
+            std::cout << "\033[1;31mFailed\033[0m ";
+        }
 
-    std::cout << "Values were: " << values.a << ", " << values.b << std::endl << std::endl;
+        std::cout << "Values were: " << values.a << ", " << values.b << std::endl << std::endl;
+    } catch (int err) {
+        std::cout << "\033[1;31mFailed\033[0m with error code: " << err << std::endl;
+    }
 }
 
 #endif

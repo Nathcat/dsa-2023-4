@@ -23,12 +23,18 @@ add_library(DSALabs-2024 SHARED
     Lab4/include/MergeSort.hpp
     Lab4/include/SelectionSort.hpp
     Lab4/include/ArrayMap.hpp
+
+    # Lab 5 sources
+    Lab5/include/Numberify.hpp
+    Lab5/include/HashFunction.hpp
+    Lab5/include/ChainingHashMap.hpp
 )
 
 target_include_directories(DSALabs-2024 PUBLIC
     Lab2/include
     Lab3/include
     Lab4/include
+    Lab5/include
 )
 
 set_target_properties(DSALabs-2024 PROPERTIES
@@ -79,4 +85,19 @@ target_link_libraries(DSALab4 DSALabs-2024)
 
 set_target_properties(DSALab4 PROPERTIES
     RUNTIME_OUTPUT_DIRECTORY Lab4/build
+)
+
+#
+#   Lab 5 tests
+#   Compile lab 5 tests executable
+#
+project(DSALab5)
+
+add_executable(DSALab5 Lab5/src/test.cpp)
+
+target_include_directories(DSALab5 PUBLIC Lab5/include Testing/include)
+target_link_libraries(DSALab5 DSALabs-2024)
+
+set_target_properties(DSALab5 PROPERTIES
+    RUNTIME_OUTPUT_DIRECTORY Lab5/build
 )

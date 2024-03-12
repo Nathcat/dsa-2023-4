@@ -67,6 +67,7 @@ all: CMakeFiles/DSALabs-2024.dir/all
 all: CMakeFiles/DSALab2.dir/all
 all: CMakeFiles/DSALab3.dir/all
 all: CMakeFiles/DSALab4.dir/all
+all: CMakeFiles/DSALab5.dir/all
 .PHONY : all
 
 # The main recursive "preinstall" target.
@@ -78,6 +79,7 @@ clean: CMakeFiles/DSALabs-2024.dir/clean
 clean: CMakeFiles/DSALab2.dir/clean
 clean: CMakeFiles/DSALab3.dir/clean
 clean: CMakeFiles/DSALab4.dir/clean
+clean: CMakeFiles/DSALab5.dir/clean
 .PHONY : clean
 
 #=============================================================================
@@ -87,7 +89,7 @@ clean: CMakeFiles/DSALab4.dir/clean
 CMakeFiles/DSALabs-2024.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/DSALabs-2024.dir/build.make CMakeFiles/DSALabs-2024.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/DSALabs-2024.dir/build.make CMakeFiles/DSALabs-2024.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/media/nathcat/Data/Projects/GitHub/dsa-2023-4/C++/CMakeFiles --progress-num=7 "Built target DSALabs-2024"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/media/nathcat/Data/Projects/GitHub/dsa-2023-4/C++/CMakeFiles --progress-num=9 "Built target DSALabs-2024"
 .PHONY : CMakeFiles/DSALabs-2024.dir/all
 
 # Build rule for subdir invocation for target.
@@ -183,6 +185,32 @@ DSALab4: CMakeFiles/DSALab4.dir/rule
 CMakeFiles/DSALab4.dir/clean:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/DSALab4.dir/build.make CMakeFiles/DSALab4.dir/clean
 .PHONY : CMakeFiles/DSALab4.dir/clean
+
+#=============================================================================
+# Target rules for target CMakeFiles/DSALab5.dir
+
+# All Build rule for target.
+CMakeFiles/DSALab5.dir/all: CMakeFiles/DSALabs-2024.dir/all
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/DSALab5.dir/build.make CMakeFiles/DSALab5.dir/depend
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/DSALab5.dir/build.make CMakeFiles/DSALab5.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/media/nathcat/Data/Projects/GitHub/dsa-2023-4/C++/CMakeFiles --progress-num=7,8 "Built target DSALab5"
+.PHONY : CMakeFiles/DSALab5.dir/all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/DSALab5.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /media/nathcat/Data/Projects/GitHub/dsa-2023-4/C++/CMakeFiles 3
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/DSALab5.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /media/nathcat/Data/Projects/GitHub/dsa-2023-4/C++/CMakeFiles 0
+.PHONY : CMakeFiles/DSALab5.dir/rule
+
+# Convenience name for target.
+DSALab5: CMakeFiles/DSALab5.dir/rule
+.PHONY : DSALab5
+
+# clean rule for target.
+CMakeFiles/DSALab5.dir/clean:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/DSALab5.dir/build.make CMakeFiles/DSALab5.dir/clean
+.PHONY : CMakeFiles/DSALab5.dir/clean
 
 #=============================================================================
 # Special targets to cleanup operation of make.

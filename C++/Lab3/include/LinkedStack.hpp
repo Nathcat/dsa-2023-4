@@ -61,7 +61,7 @@ public:
     /// @brief Return the item at the top of the stack without removing it
     /// @returns The item at the top of the stack
     /// @throws STACK_IS_EMPTY
-    T peek() {
+    T* peek() {
         if (this->is_empty()) throw STACK_IS_EMPTY;
         return list->get_last();
     }
@@ -69,9 +69,9 @@ public:
     /// @brief Return the item at the top of the stack and remove it.
     /// @returns The item from the top of the stack
     /// @throws STACK_IS_EMPTY
-    T pop() {
+    bool pop(T** out) {
         if (this->is_empty()) throw STACK_IS_EMPTY;
-        return list->remove_last();
+        return list->remove_last(out);
     }
 
     /// @brief Call a function over every item in the stack.

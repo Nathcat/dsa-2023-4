@@ -4,7 +4,7 @@
 # compile CXX with /usr/bin/c++
 CXX_DEFINES = 
 
-CXX_INCLUDES = -I/media/nathcat/Data/Projects/GitHub/dsa-2023-4/C++/Lab4/include -I/media/nathcat/Data/Projects/GitHub/dsa-2023-4/C++/Testing/include -I/media/nathcat/Data/Projects/GitHub/dsa-2023-4/C++/Lab2/include -I/media/nathcat/Data/Projects/GitHub/dsa-2023-4/C++/Lab3/include
+CXX_INCLUDES = -I/media/nathcat/Data/Projects/GitHub/dsa-2023-4/C++/Lab4/include -I/media/nathcat/Data/Projects/GitHub/dsa-2023-4/C++/Testing/include -I/media/nathcat/Data/Projects/GitHub/dsa-2023-4/C++/Lab2/include -I/media/nathcat/Data/Projects/GitHub/dsa-2023-4/C++/Lab3/include -I/media/nathcat/Data/Projects/GitHub/dsa-2023-4/C++/Lab5/include
 
 CXX_FLAGS = 
 
