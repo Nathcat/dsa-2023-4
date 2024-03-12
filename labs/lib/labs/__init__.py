@@ -75,6 +75,14 @@ class Labs:
                         "linker",
                     ),
                 ),
+                (
+                    ("binary_tree",),
+                    (),
+                ),
+                (
+                    ("binary_search_tree",),
+                    (),
+                ),
             )
         return Labs._instance
 
