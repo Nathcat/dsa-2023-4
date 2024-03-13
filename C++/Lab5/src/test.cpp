@@ -2,9 +2,13 @@
 #include <Numberify.hpp>
 #include <HashFunction.hpp>
 #include <ChainingHashMap.hpp>
+#include <ProbingHashMap.hpp>
 
 
 int main() {
+
+    std::cout << "\n\n\n===== HashFunction and Numberify tests =====\n";
+
     //
     //  Test hash function and numberify
     //
@@ -118,6 +122,7 @@ int main() {
         return create_pair(false, *a == *b);
     }, is_eq);
 
+    std::cout << "\n\n\n===== ChainingHashMap tests =====\n";
 
     //
     //  Chaining hash map tests
@@ -353,6 +358,246 @@ int main() {
             map.remove(new Hashable<const char*>(&k));
         } catch (int err) {
             return create_pair(ChainingHashMap<const char*, int>::KEY_ERROR, err);
+        }
+        return create_pair(-1, 1);
+    }, is_eq);
+
+    std::cout << "\n\n\n===== ProbingHashMap tests =====\n";
+
+    //
+    //  Probing hash map tests
+    //
+    test<bool>("Contains on empty map", []() {
+        ProbingHashMap<int, const char*>* map = new ProbingHashMap<int, const char*>();
+        int v = 5;
+        Hashable<int> key(&v);
+        return create_pair(false, map->contains(&key));
+    }, is_eq);
+
+    test<bool>("Contains", []() {
+        const char* keys[] = {"A", "B", "C", "D", "E"};
+        MapRecord<Hashable<const char*>, int> records[] = {
+            {Hashable<const char*>::create(keys), 1},
+            {Hashable<const char*>::create(keys + 1), 2},
+            {Hashable<const char*>::create(keys + 2), 3},
+            {Hashable<const char*>::create(keys + 3), 4},
+            {Hashable<const char*>::create(keys + 4), 5}
+        };
+
+        ProbingHashMap<const char*, int>* map = ProbingHashMap<const char*, int>::build(records, 5, 0.8);
+        MapRecord<Hashable<const char*>, int> v = records[rand() % 5];
+        return create_pair(true, map->contains(&v.key));
+    }, is_eq);
+
+    test<bool>("Contains not", []() {
+        const char* keys[] = {"A", "B", "C", "D", "E"};
+        MapRecord<Hashable<const char*>, int> records[] = {
+            {Hashable<const char*>::create(keys), 1},
+            {Hashable<const char*>::create(keys + 1), 2},
+            {Hashable<const char*>::create(keys + 2), 3},
+            {Hashable<const char*>::create(keys + 3), 4},
+            {Hashable<const char*>::create(keys + 4), 5}
+        };
+
+        ProbingHashMap<const char*, int>* map = ProbingHashMap<const char*, int>::build(records, 5, 0.8);
+        const char* vK = "F";
+        MapRecord<Hashable<const char*>, int> v = {Hashable<const char*>::create(&vK), 6};
+        return create_pair(false, map->contains(&v.key));
+    }, is_eq);
+
+    test<int>("Contains then insert then get length", []() {
+        const char* keys[] = {"A", "B", "C", "D", "E"};
+        MapRecord<Hashable<const char*>, int> records[] = {
+            {Hashable<const char*>::create(keys), 1},
+            {Hashable<const char*>::create(keys + 1), 2},
+            {Hashable<const char*>::create(keys + 2), 3},
+            {Hashable<const char*>::create(keys + 3), 4},
+            {Hashable<const char*>::create(keys + 4), 5}
+        };
+
+        ProbingHashMap<const char*, int>* map = ProbingHashMap<const char*, int>::build(records, 5, 0.8);
+        const char* vK = "F";
+        MapRecord<Hashable<const char*>, int> v = {Hashable<const char*>::create(&vK), 6};
+        int length = map->getLength();
+        map->insert(&v.key, v.value);
+        return create_pair(length + 1, map->getLength());
+    }, is_eq);
+
+    test<int>("Get length", []() {
+        const char* keys[] = {"A", "B", "C", "D", "E"};
+        MapRecord<Hashable<const char*>, int> records[] = {
+            {Hashable<const char*>::create(keys), 1},
+            {Hashable<const char*>::create(keys + 1), 2},
+            {Hashable<const char*>::create(keys + 2), 3},
+            {Hashable<const char*>::create(keys + 3), 4},
+            {Hashable<const char*>::create(keys + 4), 5}
+        };
+
+        ProbingHashMap<const char*, int>* map = ProbingHashMap<const char*, int>::build(records, 5, 0.8);
+        return create_pair(5, map->getLength());
+    }, is_eq);
+
+    test<int>("Get on empty map", []() {
+        ProbingHashMap<const char*, int>* map = new ProbingHashMap<const char*, int>();
+
+        try {
+            const char* s = "Hello world";
+            map->get(new Hashable<const char*>(&s));
+        } catch (int err) {
+            return create_pair(ProbingHashMap<const char*, int>::KEY_ERROR, err);
+        }
+
+        return create_pair(-1, 1);
+    }, is_eq);
+
+    test<int>("Insert on empty map then get length", []() {
+        ProbingHashMap<const char*, int>* map = new ProbingHashMap<const char*, int>();
+
+        const char* s = "Hello world";
+        map->insert(new Hashable<const char*>(&s), 1);
+
+        return create_pair(1, map->getLength());
+    }, is_eq);
+
+    test<int>("Insert twice on empty map then get length", []() {
+        const char* keys[] = {"A"}; 
+
+        ProbingHashMap<const char*, int>* map = new ProbingHashMap<const char*, int>();
+        map->insert(new Hashable<const char*>(keys), 1);
+        map->insert(new Hashable<const char*>(keys), 2);
+        
+        return create_pair(1, map->getLength());
+    }, is_eq);
+
+    test<bool>("Insert on empty map then contains", []() {
+        ProbingHashMap<const char*, int>* map = new ProbingHashMap<const char*, int>();
+        const char* key = "A"; int v = 5;
+        map->insert(new Hashable<const char*>(&key), v);
+
+        return create_pair(true, map->contains(new Hashable<const char*>(&key)));
+    }, is_eq);
+
+    test<bool>("Insert on empty map then remove then contains", []() {
+        ProbingHashMap<const char*, int>* map = new ProbingHashMap<const char*, int>();
+        const char* key = "A"; int v = 5;
+        map->insert(new Hashable<const char*>(&key), v);
+        map->remove(new Hashable<const char*>(&key));
+        return create_pair(false, map->contains(new Hashable<const char*>(&key)));
+    }, is_eq);
+
+    test<int>("Insert on empty map then get", []() {
+        ProbingHashMap<const char*, int>* map = new ProbingHashMap<const char*, int>();
+        const char* key = "A"; int v = 5;
+        map->insert(new Hashable<const char*>(&key), v);
+        return create_pair(v, map->get(new Hashable<const char*>(&key)));
+    }, is_eq);
+
+    test<int>("Insert twice on empty map then get", []() {
+        ProbingHashMap<const char*, int>* map = new ProbingHashMap<const char*, int>();
+        const char* key = "A";
+
+        map->insert(new Hashable<const char*>(&key), 5);
+        map->insert(new Hashable<const char*>(&key), 6);
+        return create_pair(6, map->get(new Hashable<const char*>(&key)));
+    }, is_eq);
+
+    test<int>("Insert on empty map then remove", []() {
+        ProbingHashMap<const char*, int>* map = new ProbingHashMap<const char*, int>();
+        const char* key = "A";
+        map->insert(new Hashable<const char*>(&key), 5);
+        return create_pair(5, map->remove(new Hashable<const char*>(&key)));
+    }, is_eq);
+
+    test<int>("Insert on empty map then remove twice", []() {
+        ProbingHashMap<const char*, int>* map = new ProbingHashMap<const char*, int>();
+        const char* key = "A";
+        map->insert(new Hashable<const char*>(&key), 5);
+        map->remove(new Hashable<const char*>(&key));
+
+        try {
+            map->remove(new Hashable<const char*>(&key));
+        } catch (int err) {
+            return create_pair(ProbingHashMap<const char*, int>::KEY_ERROR, err);
+        }
+        return create_pair(-1, 1);
+    }, is_eq);
+
+    test<bool>("Insert then contains", []() {
+        const char* keys[] = {"A", "B", "C", "D", "E", "F"};
+        MapRecord<Hashable<const char*>, int> records[] = {
+            {Hashable<const char*>::create(keys), 1},
+            {Hashable<const char*>::create(keys + 1), 2},
+            {Hashable<const char*>::create(keys + 2), 3},
+            {Hashable<const char*>::create(keys + 3), 4},
+            {Hashable<const char*>::create(keys + 4), 5}
+        };
+
+        ProbingHashMap<const char*, int>* map = ProbingHashMap<const char*, int>::build(records, 5, 0.8);
+        map->insert(new Hashable<const char*>(keys + 5), 6);
+
+        return create_pair(true, map->contains(new Hashable<const char*>(keys + 5)));
+    }, is_eq);
+
+    test<int>("Insert then get", []() {
+        const char* keys[] = {"A", "B", "C", "D", "E", "F"};
+        MapRecord<Hashable<const char*>, int> records[] = {
+            {Hashable<const char*>::create(keys), 1},
+            {Hashable<const char*>::create(keys + 1), 2},
+            {Hashable<const char*>::create(keys + 2), 3},
+            {Hashable<const char*>::create(keys + 3), 4},
+            {Hashable<const char*>::create(keys + 4), 5}
+        };
+
+        ProbingHashMap<const char*, int>* map = ProbingHashMap<const char*, int>::build(records, 5, 0.8);
+        map->insert(new Hashable<const char*>(keys + 5), 6);
+
+        return create_pair(6, map->get(new Hashable<const char*>(keys + 5)));
+    }, is_eq);
+
+    test<int>("Insert then remove", []() {
+        const char* keys[] = {"A", "B", "C", "D", "E", "F"};
+        MapRecord<Hashable<const char*>, int> records[] = {
+            {Hashable<const char*>::create(keys), 1},
+            {Hashable<const char*>::create(keys + 1), 2},
+            {Hashable<const char*>::create(keys + 2), 3},
+            {Hashable<const char*>::create(keys + 3), 4},
+            {Hashable<const char*>::create(keys + 4), 5}
+        };
+
+        ProbingHashMap<const char*, int>* map = ProbingHashMap<const char*, int>::build(records, 5, 0.8);
+        map->insert(new Hashable<const char*>(keys + 5), 6);
+        return create_pair(6, map->remove(new Hashable<const char*>(keys + 5)));
+    }, is_eq);
+
+    test<int>("Insert then remove twice", []() {
+        const char* keys[] = {"A", "B", "C", "D", "E", "F"};
+        MapRecord<Hashable<const char*>, int> records[] = {
+            {Hashable<const char*>::create(keys), 1},
+            {Hashable<const char*>::create(keys + 1), 2},
+            {Hashable<const char*>::create(keys + 2), 3},
+            {Hashable<const char*>::create(keys + 3), 4},
+            {Hashable<const char*>::create(keys + 4), 5}
+        };
+
+        ProbingHashMap<const char*, int>* map = ProbingHashMap<const char*, int>::build(records, 5, 0.8);
+        map->insert(new Hashable<const char*>(keys + 5), 6);
+        map->remove(new Hashable<const char*>(keys + 5));
+
+        try {
+            map->remove(new Hashable<const char*>(keys + 5));
+        } catch (int err) {
+            return create_pair(ProbingHashMap<const char*, int>::KEY_ERROR, err);
+        }
+        return create_pair(-1, 1);
+    }, is_eq);
+
+    test<int>("Remove on empty map", []() {
+        ProbingHashMap<const char*, int> map;
+        const char* k = "A";
+        try {
+            map.remove(new Hashable<const char*>(&k));
+        } catch (int err) {
+            return create_pair(ProbingHashMap<const char*, int>::KEY_ERROR, err);
         }
         return create_pair(-1, 1);
     }, is_eq);

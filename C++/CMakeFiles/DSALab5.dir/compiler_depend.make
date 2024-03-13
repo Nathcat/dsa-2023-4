@@ -193,8 +193,11 @@ CMakeFiles/DSALab5.dir/Lab5/src/test.cpp.o: Lab5/src/test.cpp \
   Lab4/include/ArrayMap.hpp \
   Lab2/include/StaticArrayList.hpp \
   Lab4/include/BinarySearch.hpp \
-  Lab2/include/LinkedList.hpp
+  Lab2/include/LinkedList.hpp \
+  Lab5/include/ProbingHashMap.hpp
 
+
+Lab5/include/ProbingHashMap.hpp:
 
 Lab4/include/BinarySearch.hpp:
 

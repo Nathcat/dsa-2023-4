@@ -93,6 +93,7 @@ DSALab2_EXTERNAL_OBJECTS =
 Lab2/build/DSALab2: CMakeFiles/DSALab2.dir/Lab2/src/test.cpp.o
 Lab2/build/DSALab2: CMakeFiles/DSALab2.dir/build.make
 Lab2/build/DSALab2: build/libDSALabs-2024.so
+Lab2/build/DSALab2: /usr/lib/x86_64-linux-gnu/libncurses.so
 Lab2/build/DSALab2: CMakeFiles/DSALab2.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/media/nathcat/Data/Projects/GitHub/dsa-2023-4/C++/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable Lab2/build/DSALab2"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/DSALab2.dir/link.txt --verbose=$(VERBOSE)

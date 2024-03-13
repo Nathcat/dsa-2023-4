@@ -76,6 +76,7 @@ DSALabs__2024_OBJECTS =
 DSALabs__2024_EXTERNAL_OBJECTS =
 
 build/libDSALabs-2024.so: CMakeFiles/DSALabs-2024.dir/build.make
+build/libDSALabs-2024.so: /usr/lib/x86_64-linux-gnu/libncurses.so
 build/libDSALabs-2024.so: CMakeFiles/DSALabs-2024.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/media/nathcat/Data/Projects/GitHub/dsa-2023-4/C++/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Linking CXX shared library build/libDSALabs-2024.so"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/DSALabs-2024.dir/link.txt --verbose=$(VERBOSE)
