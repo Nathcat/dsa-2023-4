@@ -53,4 +53,5 @@ set(CMAKE_DEPEND_INFO_FILES
   "CMakeFiles/DSALab3.dir/DependInfo.cmake"
   "CMakeFiles/DSALab4.dir/DependInfo.cmake"
   "CMakeFiles/DSALab5.dir/DependInfo.cmake"
+  "CMakeFiles/DSALab6.dir/DependInfo.cmake"
   )

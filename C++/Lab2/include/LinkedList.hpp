@@ -362,7 +362,8 @@ public:
         if (this->is_empty()) return false;
 
         T item = ((LinkedList<T> *)this)->last_node->data;
-        this->get_node_at(((LinkedList<T> *)this)->length - 2)->next = nullptr;
+        if (((LinkedList<T>*) this)->length != 1) this->get_node_at(((LinkedList<T> *)this)->length - 2)->next = nullptr;
+        if (((LinkedList<T>*) this)->length == 1) this->first_node = nullptr; this->last_node = nullptr;
         ((LinkedList<T> *)this)->length--;
         *out = &item;
         return true;

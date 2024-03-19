@@ -145,7 +145,7 @@ CMAKE_PROJECT_DESCRIPTION:STATIC=
 CMAKE_PROJECT_HOMEPAGE_URL:STATIC=
 
 //Value Computed by CMake
-CMAKE_PROJECT_NAME:STATIC=DSALab5
+CMAKE_PROJECT_NAME:STATIC=DSALab6
 
 //Path to a program.
 CMAKE_RANLIB:FILEPATH=/usr/bin/ranlib
@@ -256,6 +256,15 @@ DSALab5_IS_TOP_LEVEL:STATIC=ON
 
 //Value Computed by CMake
 DSALab5_SOURCE_DIR:STATIC=/media/nathcat/Data/Projects/GitHub/dsa-2023-4/C++
+
+//Value Computed by CMake
+DSALab6_BINARY_DIR:STATIC=/media/nathcat/Data/Projects/GitHub/dsa-2023-4/C++
+
+//Value Computed by CMake
+DSALab6_IS_TOP_LEVEL:STATIC=ON
+
+//Value Computed by CMake
+DSALab6_SOURCE_DIR:STATIC=/media/nathcat/Data/Projects/GitHub/dsa-2023-4/C++
 
 //Value Computed by CMake
 DSALabs-2024_BINARY_DIR:STATIC=/media/nathcat/Data/Projects/GitHub/dsa-2023-4/C++

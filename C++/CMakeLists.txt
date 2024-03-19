@@ -23,6 +23,7 @@ add_library(DSALabs-2024 SHARED
     Lab3/include/DynamicArrayList.hpp
     Lab3/include/CircularDynamicArrayList.hpp
     Lab3/include/LinkedStack.hpp
+    Lab3/include/LinkedQueue.hpp
     Lab3/include/ArrayStack.hpp
     
     # Lab 4 sources
@@ -36,6 +37,10 @@ add_library(DSALabs-2024 SHARED
     Lab5/include/Numberify.hpp
     Lab5/include/HashFunction.hpp
     Lab5/include/ChainingHashMap.hpp
+    Lab5/include/ProbingHashMap.hpp
+
+    # Lab 6 sources
+    Lab6/include/BinaryTree.hpp
 )
 
 target_include_directories(DSALabs-2024 PUBLIC
@@ -43,6 +48,7 @@ target_include_directories(DSALabs-2024 PUBLIC
     Lab3/include
     Lab4/include
     Lab5/include
+    Lab6/include
 )
 
 target_link_libraries(DSALabs-2024 ${CURSES_LIBRARY})
@@ -110,4 +116,19 @@ target_link_libraries(DSALab5 DSALabs-2024 ${CURSES_LIBRARY})
 
 set_target_properties(DSALab5 PROPERTIES
     RUNTIME_OUTPUT_DIRECTORY Lab5/build
+)
+
+#
+#   Lab 6 tests
+#   Compile lab 6 tests executable
+#
+project(DSALab6)
+
+add_executable(DSALab6 Lab6/src/test.cpp)
+
+target_include_directories(DSALab6 PUBLIC Lab6/include Testing/include)
+target_link_libraries(DSALab6 DSALabs-2024 ${CURSES_LIBRARY})
+
+set_target_properties(DSALab6 PROPERTIES
+    RUNTIME_OUTPUT_DIRECTORY Lab6/build
 )
