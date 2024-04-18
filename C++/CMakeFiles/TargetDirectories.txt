@@ -1,8 +1,0 @@
-/media/nathcat/Data/Projects/GitHub/dsa-2023-4/C++/CMakeFiles/DSALabs-2024.dir
-/media/nathcat/Data/Projects/GitHub/dsa-2023-4/C++/CMakeFiles/DSALab2.dir
-/media/nathcat/Data/Projects/GitHub/dsa-2023-4/C++/CMakeFiles/DSALab3.dir
-/media/nathcat/Data/Projects/GitHub/dsa-2023-4/C++/CMakeFiles/DSALab4.dir
-/media/nathcat/Data/Projects/GitHub/dsa-2023-4/C++/CMakeFiles/DSALab5.dir
-/media/nathcat/Data/Projects/GitHub/dsa-2023-4/C++/CMakeFiles/DSALab6.dir
-/media/nathcat/Data/Projects/GitHub/dsa-2023-4/C++/CMakeFiles/edit_cache.dir
-/media/nathcat/Data/Projects/GitHub/dsa-2023-4/C++/CMakeFiles/rebuild_cache.dir

@@ -256,8 +256,11 @@ int main() {
         ChainingHashMap<const char*, int>* map = new ChainingHashMap<const char*, int>();
         const char* key = "A";
 
+        std::cout << "Start" << std::endl;
         map->insert(new Hashable<const char*>(&key), 5);
+        std::cout << "First insert" << std::endl;
         map->insert(new Hashable<const char*>(&key), 6);
+        std::cout << "Second insert" << std::endl;
         return create_pair(6, map->get(new Hashable<const char*>(&key)));
     }, is_eq);
 

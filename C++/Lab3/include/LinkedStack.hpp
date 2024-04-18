@@ -8,14 +8,10 @@
 template <class T>
 class LinkedStack {
 private:
-    SinglyLinkedList<T>* list;
+    LinkedList<T> list;
 
 public:
     static const int STACK_IS_EMPTY = 201;
-    
-    LinkedStack() {
-        list = new SinglyLinkedList<T>();
-    }
 
     /// @brief Build a new stack from an existing array of items.
     /// @param items The array of items
@@ -23,7 +19,7 @@ public:
     /// @return A new stack containing the items in the provided array, maintaining the given order.
     static LinkedStack<T>* build(T* items, int length) {
         LinkedStack<T>* stack = new LinkedStack<T>();
-        stack->list = SinglyLinkedList<T>::build(items, length);
+        stack->list = LinkedList<T>::build(items, length);
 
         return stack;
     }
@@ -49,36 +45,36 @@ public:
     /// @brief Get the number of items in the stack
     /// @return The number of items in the stack
     int get_length() {
-        return list->get_length();
+        return list.get_length();
     }
 
     /// @brief Push an item to the stack
     /// @param item The item to push to the stack
     void push(T item) {
-        list->insert_last(item);
+        list.insert_last(item);
     }
 
     /// @brief Return the item at the top of the stack without removing it
     /// @returns The item at the top of the stack
     /// @throws STACK_IS_EMPTY
-    T* peek() {
+    T peek() {
         if (this->is_empty()) throw STACK_IS_EMPTY;
-        return list->get_last();
+        return list.get_last();
     }
 
     /// @brief Return the item at the top of the stack and remove it.
     /// @returns The item from the top of the stack
     /// @throws STACK_IS_EMPTY
-    bool pop(T** out) {
+    T pop() {
         if (this->is_empty()) throw STACK_IS_EMPTY;
-        return list->remove_last(out);
+        return list.remove_last();
     }
 
     /// @brief Call a function over every item in the stack.
     /// @param f The function to call
     void for_each(void (*f)(int, T)) {
         for (int i = 0; i < this->get_length(); i++) {
-            f(i, list->get_at(i));
+            f(i, list.get_at(i));
         }
     }
 };

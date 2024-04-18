@@ -11,7 +11,7 @@
 template <class K, class V>
 class ChainingHashMap {
 private:
-    DoublyLinkedList<MapRecord<Hashable<K>, V>>* chainArray;
+    LinkedList<MapRecord<Hashable<K>, V>>* chainArray;
     HashFunction* hashFunction;
     int length;
     int chainCount;
@@ -22,8 +22,8 @@ private:
     void resize(int newChainCount) {
         if (newChainCount < 1) throw VALUE_ERROR;
 
-        DoublyLinkedList<MapRecord<Hashable<K>, V>>* oldArray = this->chainArray;
-        this->chainArray = (DoublyLinkedList<MapRecord<Hashable<K>, V>>*) malloc(newChainCount * sizeof(DoublyLinkedList<MapRecord<Hashable<K>, V>>));
+        LinkedList<MapRecord<Hashable<K>, V>>* oldArray = this->chainArray;
+        this->chainArray = (LinkedList<MapRecord<Hashable<K>, V>>*) malloc(newChainCount * sizeof(LinkedList<MapRecord<Hashable<K>, V>>));
 
         int oldChainCount = this->chainCount;
         this->chainCount = newChainCount;
@@ -32,8 +32,8 @@ private:
 
         for (int i = 0; i < oldChainCount; i++) {
             for (int a = 0; a < oldArray[i].get_length(); a++) {
-                Hashable<K> key = oldArray[i].get_at(a)->key;
-                this->insert(&key, oldArray[i].get_at(a)->value);
+                Hashable<K> key = oldArray[i].get_at(a).key;
+                this->insert(&key, oldArray[i].get_at(a).value);
             }
         }
 
@@ -42,7 +42,7 @@ private:
     /// @brief Get the chain associated with a certain key
     /// @param key The key to get
     /// @return The chain associated with the given key
-    DoublyLinkedList<MapRecord<Hashable<K>, V>>* getChain(Hashable<K>* key) {
+    LinkedList<MapRecord<Hashable<K>, V>>* getChain(Hashable<K>* key) {
         return this->chainArray + this->hashFunction->hash(key);
     }
 
@@ -52,7 +52,7 @@ public:
 
     ChainingHashMap(float maxLoadFactor) {
         if (maxLoadFactor <= (1 / 2)) throw VALUE_ERROR;
-        this->chainArray = new DoublyLinkedList<MapRecord<Hashable<K>, V>>();
+        this->chainArray = (LinkedList<MapRecord<Hashable<K>, V>>*) malloc(sizeof(LinkedList<MapRecord<Hashable<K>, V>>));
         this->hashFunction = new HashFunction(1);
         this->length = 0;
         this->chainCount = 1;
@@ -60,7 +60,7 @@ public:
     }
 
     ChainingHashMap() {
-        this->chainArray = new DoublyLinkedList<MapRecord<Hashable<K>, V>>();
+        this->chainArray = (LinkedList<MapRecord<Hashable<K>, V>>*) malloc(sizeof(LinkedList<MapRecord<Hashable<K>, V>>));
         this->hashFunction = new HashFunction(1);
         this->length = 0;
         this->chainCount = 1;
@@ -90,10 +90,10 @@ public:
     /// @param key The key to look for
     /// @return true / false
     bool contains(Hashable<K>* key) {
-        DoublyLinkedList<MapRecord<Hashable<K>, V>>* chain = this->getChain(key);
+        LinkedList<MapRecord<Hashable<K>, V>>* chain = this->getChain(key);
 
         for (int i = 0; i < chain->get_length(); i++) {
-            if (chain->get_at(i)->key == *key) return true;
+            if (chain->get_at(i).key == *key) return true;
         }
 
         return false;
@@ -113,11 +113,11 @@ public:
     /// @param key The key
     /// @return The value associated with the given key
     V get(Hashable<K>* key) {
-        DoublyLinkedList<MapRecord<Hashable<K>, V>>* chain = this->getChain(key);
+        LinkedList<MapRecord<Hashable<K>, V>>* chain = this->getChain(key);
 
         for (int i = 0; i < chain->get_length(); i++) {
-            if (chain->get_at(i)->key == *key) {
-                return chain->get_at(i)->value;
+            if (chain->get_at(i).key == *key) {
+                return chain->get_at(i).value;
             }
         }
 
@@ -128,14 +128,15 @@ public:
     /// @param key The key of the item
     /// @param value The value to insert
     void insert(Hashable<K>* key, V value) {
-        DoublyLinkedList<MapRecord<Hashable<K>, V>>* chain = this->getChain(key);
-        
+        LinkedList<MapRecord<Hashable<K>, V>>* chain = this->getChain(key);
+        std::cout << "\tGot chain" << std::endl;
         MapRecord<Hashable<K>, V> record(*key, value);
-
+        std::cout << "\tMade record" << std::endl;
         if (chain->contains(record)) {
+            std::cout << "\tContains" << std::endl;
             for (int i = 0; i < chain->get_length(); i++) {
-                if (*chain->get_at(i) == record) {
-                    chain->set_at(i, &record);
+                if (chain->get_at(i) == record) {
+                    chain->set_at(i, record);
                     return;
                 }
             }
@@ -154,14 +155,13 @@ public:
     /// @param key The key to remove
     /// @return The item which was associated with the given key
     V remove(Hashable<K>* key) {
-        DoublyLinkedList<MapRecord<Hashable<K>, V>>* chain = this->getChain(key);
+        LinkedList<MapRecord<Hashable<K>, V>>* chain = this->getChain(key);
 
         for (int i = 0; i < chain->get_length(); i++) {
-            if (chain->get_at(i)->key == *key) {
+            if (chain->get_at(i).key == *key) {
                 length--;
-                MapRecord<Hashable<K>, V>* r;
-                chain->remove_at(i, &r);
-                return r->value;
+                MapRecord<Hashable<K>, V> r = chain->remove_at(i);
+                return r.value;
             }
         }
 

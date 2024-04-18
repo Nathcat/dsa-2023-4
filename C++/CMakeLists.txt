@@ -1,14 +1,6 @@
 cmake_minimum_required(VERSION 3.11.2)
 
 #
-#   Included NCurses library
-#
-set(CMAKE_INCLUDE_PATH "/usr/include")
-set(CURSES_LIBRARY "/usr/lib/x86_64-linux-gnu/libncurses.so")
-find_package(Curses REQUIRED)
-include_directories(${CURSES_INCLUDE_DIR})
-
-#
 #   DSALabs-2024
 #   Compile all labs to a single shared library
 #
@@ -51,10 +43,20 @@ target_include_directories(DSALabs-2024 PUBLIC
     Lab6/include
 )
 
-target_link_libraries(DSALabs-2024 ${CURSES_LIBRARY})
-
 set_target_properties(DSALabs-2024 PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY build
+    LINKER_LANGUAGE CXX
+)
+
+#
+#   DSA test
+#   Compile DSA test executable
+#
+project(DSATest)
+add_executable(DSATest src/dsa-test.cpp)
+target_link_libraries(DSATest DSALabs-2024)
+set_target_properties(DSATest PROPERTIES
+    RUNTIME_OUTPUT_DIRECTORY build
     LINKER_LANGUAGE CXX
 )
 
@@ -67,7 +69,7 @@ project(DSALab2)
 add_executable(DSALab2 Lab2/src/test.cpp)
 
 target_include_directories(DSALab2 PUBLIC Lab2/include Testing/include)
-target_link_libraries(DSALab2 DSALabs-2024 ${CURSES_LIBRARY})
+target_link_libraries(DSALab2 DSALabs-2024)
 
 set_target_properties(DSALab2 PROPERTIES
     RUNTIME_OUTPUT_DIRECTORY Lab2/build
@@ -82,7 +84,7 @@ project(DSALab3)
 add_executable(DSALab3 Lab3/src/test.cpp)
 
 target_include_directories(DSALab3 PUBLIC Lab3/include Testing/include)
-target_link_libraries(DSALab3 DSALabs-2024 ${CURSES_LIBRARY})
+target_link_libraries(DSALab3 DSALabs-2024)
 
 set_target_properties(DSALab3 PROPERTIES
     RUNTIME_OUTPUT_DIRECTORY Lab3/build
@@ -97,7 +99,7 @@ project(DSALab4)
 add_executable(DSALab4 Lab4/src/test.cpp)
 
 target_include_directories(DSALab4 PUBLIC Lab4/include Testing/include)
-target_link_libraries(DSALab4 DSALabs-2024 ${CURSES_LIBRARY})
+target_link_libraries(DSALab4 DSALabs-2024)
 
 set_target_properties(DSALab4 PROPERTIES
     RUNTIME_OUTPUT_DIRECTORY Lab4/build
@@ -112,7 +114,7 @@ project(DSALab5)
 add_executable(DSALab5 Lab5/src/test.cpp)
 
 target_include_directories(DSALab5 PUBLIC Lab5/include Testing/include)
-target_link_libraries(DSALab5 DSALabs-2024 ${CURSES_LIBRARY})
+target_link_libraries(DSALab5 DSALabs-2024)
 
 set_target_properties(DSALab5 PROPERTIES
     RUNTIME_OUTPUT_DIRECTORY Lab5/build
@@ -127,7 +129,7 @@ project(DSALab6)
 add_executable(DSALab6 Lab6/src/test.cpp)
 
 target_include_directories(DSALab6 PUBLIC Lab6/include Testing/include)
-target_link_libraries(DSALab6 DSALabs-2024 ${CURSES_LIBRARY})
+target_link_libraries(DSALab6 DSALabs-2024)
 
 set_target_properties(DSALab6 PROPERTIES
     RUNTIME_OUTPUT_DIRECTORY Lab6/build
