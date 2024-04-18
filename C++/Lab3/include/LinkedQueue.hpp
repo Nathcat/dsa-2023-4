@@ -8,14 +8,10 @@
 template <class T>
 class LinkedQueue {
 private:
-    SinglyLinkedList<T>* list;
+    LinkedList<T> list;
 
 public:
     static const int QUEUE_IS_EMPTY = 201;
-    
-    LinkedQueue() {
-        list = new SinglyLinkedList<T>();
-    }
 
     /// @brief Build a new queue from an existing array of items.
     /// @param items The array of items
@@ -23,7 +19,7 @@ public:
     /// @return A new queue containing the items in the provided array, maintaining the given order.
     static LinkedQueue<T>* build(T* items, int length) {
         LinkedQueue<T>* queue = new LinkedQueue<T>();
-        queue->list = SinglyLinkedList<T>::build(items, length);
+        queue->list = LinkedList<T>::build(items, length);
 
         return queue;
     }
@@ -32,7 +28,7 @@ public:
     /// @return Boolean value describing wether or not the queue contains the given item
     int contains(T item) {
         for (int i = 0; i < this->get_length(); i++) {
-            if (list->get_at(i) == item) {
+            if (list.get_at(i) == item) {
                 return 1;
             }
         }
@@ -49,36 +45,36 @@ public:
     /// @brief Get the number of items in the queue
     /// @return The number of items in the queue
     int get_length() {
-        return list->get_length();
+        return list.get_length();
     }
 
     /// @brief Push an item to the queue
     /// @param item The item to push to the queue
     void push(T item) {
-        list->insert_last(item);
+        list.insert_last(item);
     }
 
     /// @brief Return the item at the top of the queue without removing it
     /// @returns The item at the top of the queue
     /// @throws QUEUE_IS_EMPTY
-    T* peek() {
+    T peek() {
         if (this->is_empty()) throw QUEUE_IS_EMPTY;
-        return list->get_first();
+        return list.get_first();
     }
 
     /// @brief Return the item at the top of the queue and remove it.
     /// @returns The item from the top of the queue
     /// @throws QUEUE_IS_EMPTY
-    bool pop(T** out) {
+    T pop() {
         if (this->is_empty()) throw QUEUE_IS_EMPTY;
-        return list->remove_first(out);
+        return list.remove_first();
     }
 
     /// @brief Call a function over every item in the queue.
     /// @param f The function to call
     void for_each(void (*f)(int, T)) {
         for (int i = 0; i < this->get_length(); i++) {
-            f(i, list->get_at(i));
+            f(i, list.get_at(i));
         }
     }
 };

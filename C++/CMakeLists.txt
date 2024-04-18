@@ -59,6 +59,18 @@ set_target_properties(DSALabs-2024 PROPERTIES
 )
 
 #
+#   DSA test
+#   Compile DSA test executable
+#
+project(DSATest)
+add_executable(DSATest src/dsa-test.cpp)
+target_link_libraries(DSATest DSALabs-2024 ${CURSES_LIBRARY})
+set_target_properties(DSATest PROPERTIES
+    RUNTIME_OUTPUT_DIRECTORY build
+    LINKER_LANGUAGE CXX
+)
+
+#
 #   Lab 2 tests
 #   Compile lab 2 tests executable
 #

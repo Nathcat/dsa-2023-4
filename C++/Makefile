@@ -130,6 +130,19 @@ DSALabs-2024/fast:
 .PHONY : DSALabs-2024/fast
 
 #=============================================================================
+# Target rules for targets named DSATest
+
+# Build rule for target.
+DSATest: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 DSATest
+.PHONY : DSATest
+
+# fast build rule for target.
+DSATest/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/DSATest.dir/build.make CMakeFiles/DSATest.dir/build
+.PHONY : DSATest/fast
+
+#=============================================================================
 # Target rules for targets named DSALab2
 
 # Build rule for target.
@@ -314,6 +327,30 @@ Lab6/src/test.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/DSALab6.dir/build.make CMakeFiles/DSALab6.dir/Lab6/src/test.cpp.s
 .PHONY : Lab6/src/test.cpp.s
 
+src/dsa-test.o: src/dsa-test.cpp.o
+.PHONY : src/dsa-test.o
+
+# target to build an object file
+src/dsa-test.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/DSATest.dir/build.make CMakeFiles/DSATest.dir/src/dsa-test.cpp.o
+.PHONY : src/dsa-test.cpp.o
+
+src/dsa-test.i: src/dsa-test.cpp.i
+.PHONY : src/dsa-test.i
+
+# target to preprocess a source file
+src/dsa-test.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/DSATest.dir/build.make CMakeFiles/DSATest.dir/src/dsa-test.cpp.i
+.PHONY : src/dsa-test.cpp.i
+
+src/dsa-test.s: src/dsa-test.cpp.s
+.PHONY : src/dsa-test.s
+
+# target to generate assembly for a file
+src/dsa-test.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/DSATest.dir/build.make CMakeFiles/DSATest.dir/src/dsa-test.cpp.s
+.PHONY : src/dsa-test.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -328,6 +365,7 @@ help:
 	@echo "... DSALab5"
 	@echo "... DSALab6"
 	@echo "... DSALabs-2024"
+	@echo "... DSATest"
 	@echo "... Lab2/src/test.o"
 	@echo "... Lab2/src/test.i"
 	@echo "... Lab2/src/test.s"
@@ -343,6 +381,9 @@ help:
 	@echo "... Lab6/src/test.o"
 	@echo "... Lab6/src/test.i"
 	@echo "... Lab6/src/test.s"
+	@echo "... src/dsa-test.o"
+	@echo "... src/dsa-test.i"
+	@echo "... src/dsa-test.s"
 .PHONY : help
 
 

@@ -1,78 +1,90 @@
 #include <LinkedList.hpp>
 #include <iostream>
+#include <Testing.hpp>
+#include <random>
+#include <time.h>
 
 int main() {
-    int items[] = {1, 2, 3, 4};
-    DoublyLinkedList<int>* list = DoublyLinkedList<int>::build(items, 4);
+    srand(time(NULL));
 
-    list->for_each([](int index, int item) {
-        std::cout << index << ": " << item << std::endl;
-    });
+    test<int>("Get at below lower bound", []() {
+        int items[] = {1, 2, 3, 4, 5};
+        LinkedList<int> l = LinkedList<int>::build(items, 5);
 
-    std::cout << std::endl << "Insert first" << std::endl;
+        try {
+            l.get_at(-1);
+        } catch (int err) {
+            return create_pair(LinkedList<int>::INDEX_ERROR, err);
+        }
 
-    int item = 5;
-    list->insert_first(item);
+        return create_pair(-1, -1);
+    }, is_eq);
 
-    std::cout << "First: " << list->get_first() << std::endl;
+    test<int>("Get at", []() {
+        int items[] = {1, 2, 3, 4, 5};
+        LinkedList<int> l = LinkedList<int>::build(items, 5);
 
-    list->for_each([](int index, int item) {
-        std::cout << index << ": " << item << std::endl;
-    });
+        int r = rand() % 5;
+        return create_pair(items[r], l.get_at(r));
+    }, is_eq);
 
+    test<int>("Insert at", []() {
+        int items[] = {1, 2, 3, 4, 5};
+        LinkedList<int> l = LinkedList<int>::build(items, 5);
 
-    std::cout << std::endl << "Insert last" << std::endl;
+        int r = rand() % 5;
+        l.insert_at(r, 6);
 
-    int item2 = 6;
-    list->insert_last(item2);
+        return create_pair(6, l.get_at(r));
+    }, is_eq);
 
-    std::cout << "Last: " << list->get_last() << std::endl;
+    test<int>("Insert at end", []() {
+        int items[] = {1, 2, 3, 4, 5};
+        LinkedList<int> l = LinkedList<int>::build(items, 5);
 
-    list->for_each([](int index, int item) {
-        std::cout << index << ": " << item << std::endl;
-    });
+        l.insert_at(l.get_length(), 6);
 
+        return create_pair(6, l.get_at(l.get_length() - 1));
+    }, is_eq);
 
-    std::cout << std::endl << "Insert at 3" << std::endl;
+    test<int>("Insert when empty", []() {
+        LinkedList<int> l;
 
-    int item3 = 7;
-    list->insert_at(3, item3);
+        l.insert_first(1);
+        return create_pair(1, l.get_at(0));
+    }, is_eq);
 
-    std::cout << "3: " << list->get_at(3) << std::endl;
+    test<int>("Remove on empty", []() {
+        LinkedList<int> l;
 
-    list->for_each([](int index, int item) {
-        std::cout << index << ": " << item << std::endl;
-    });
+        try {
+            int v = l.remove_first();
+        } catch (int err) {
+            return create_pair(LinkedList<int>::LIST_IS_EMPTY, err);
+        }
+        return create_pair(-1, -1);
+    }, is_eq);
 
+    test<int>("Remove first", []() {
+        int items[] = {1, 2, 3, 4, 5};
+        LinkedList<int> l = LinkedList<int>::build(items, 5);
 
-    std::cout << std::endl << "Remove last x2" << std::endl;
+        return create_pair(items[0], l.remove_first());
+    }, is_eq);
 
-    int* v;
-    list->remove_last(&v);
-    list->remove_last(&v);
+    test<int>("Remove last", []() {
+        int items[] = {1, 2, 3, 4, 5};
+        LinkedList<int> l = LinkedList<int>::build(items, 5);
 
-    list->for_each([](int index, int item) {
-        std::cout << index << ": " << item << std::endl;
-    });
+        return create_pair(items[4], l.remove_last());
+    }, is_eq);
 
+    test<int>("Remove at", []() {
+        int items[] = {1, 2, 3, 4, 5};
+        LinkedList<int> l = LinkedList<int>::build(items, 5);
 
-    std::cout << std::endl << "Remove first x2" << std::endl;
-
-    list->remove_first(&v);
-    list->remove_first(&v);
-
-    list->for_each([](int index, int item) {
-        std::cout << index << ": " << item << std::endl;
-    });
-
-
-    std::cout << std::endl << "Remove 1" << std::endl;
-
-    list->remove_at(1, &v);
-
-    list->for_each([](int index, int item) {
-        std::cout << index << ": " << item << std::endl;
-    });
-
-    return 0;
-};
+        int r = rand() % 5;
+        std::cout << "Removing " << r << std::endl;
+        return create_pair(items[r], l.remove_at(r));
+    }, is_eq);
+}

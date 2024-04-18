@@ -116,6 +116,21 @@ public:
         this->size = size;
     }
 
+    /// @brief Compare two hashable objects
+    /// @tparam T The type contained by the hashables
+    /// @param a Hashable 1
+    /// @param b Hashable 2
+    /// @return 0 if a == b, 1 if a > b, -1 if a < b.
+    template<class T>
+    int cmp(Hashable<T>* a, Hashable<T>* b) {
+        unsigned long long aH = this->hash(a);
+        unsigned long long bH = this->hash(b);
+
+        if (aH == bH) return 0;
+        else if (aH > bH) return 1;
+        else return -1;
+    }
+ 
     template <class T>
     unsigned long long hash(Hashable<T>* h) {
         unsigned char* buffer;

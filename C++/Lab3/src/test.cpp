@@ -26,7 +26,7 @@ void linked_stack_test() {
         int top_item = 5;
         LinkedStack<int>* stack = LinkedStack<int>::build(items, 4);
         stack->push(top_item);
-        return create_pair(top_item, *stack->peek());
+        return create_pair(top_item, stack->peek());
     }, is_eq);
 
     test<int>("Push then pop", []() {
@@ -34,9 +34,8 @@ void linked_stack_test() {
         int top_item = 5;
         LinkedStack<int>* stack = LinkedStack<int>::build(items, 4);
         stack->push(top_item);
-        int* v;
-        stack->pop(&v);
-        return create_pair(top_item, *v);
+        int v = stack->pop();
+        return create_pair(top_item, v);
     }, is_eq);
 
     test<int>("Peek on empty stack", []() {
@@ -62,17 +61,15 @@ void linked_stack_test() {
         int items[] = {1, 2, 3, 4};
         int top_item = 5;
         LinkedStack<int>* stack = LinkedStack<int>::build(items, 4);
-        int a = *stack->peek();
-        int* b;
-        stack->pop(&b);
-        return create_pair(a, *b);
+        int a = stack->peek();
+        int b = stack->pop();
+        return create_pair(a, b);
     }, is_eq);
 
     test<int>("Pop on empty stack", []() {
         LinkedStack<int>* stack = new LinkedStack<int>();
         try {
-            int* v;
-            stack->pop(&v);
+            int v = stack->pop();
         } catch (int err) {
             return create_pair(LinkedStack<int>::STACK_IS_EMPTY, err);
         }
@@ -85,8 +82,7 @@ void linked_stack_test() {
         int top_item = 5;
         LinkedStack<int>* stack = LinkedStack<int>::build(items, 4);
         int length = stack->get_length();
-        int* v;
-        stack->pop(&v);
+        int v = stack->pop();
         return create_pair(length - 1, stack->get_length());
     }, is_eq);
 }

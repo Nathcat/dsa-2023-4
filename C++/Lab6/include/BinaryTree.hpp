@@ -4,271 +4,208 @@
 #include <LinkedStack.hpp>
 #include <LinkedQueue.hpp>
 #include <ChainingHashMap.hpp>
+#include <ArrayMap.hpp>
+#include <HashFunction.hpp>
+#include <LinkedList.hpp>
 
 /// @brief BTree namespace. This is used because some of the name definitions may conflict with parts of other labs.
-namespace BTree {
-    template <class T>
+namespace BinaryTree {
+    HashFunction hasher((~0) * -1);
+
+    template <class K, class V>
     class Node {
     public:
-        T* data;
-        Node<T>* left;
-        Node<T>* right;
+        K* key;
+        V* value;
+        Node<K, V>* left;
+        Node<K, V>* right;
 
-        Node() {
-            data = nullptr;
+        Node(K k, V v) {
+            key = (K*) malloc(sizeof(K));
+            *key = k;
+
+            value = (V*) malloc(sizeof(V));
+            *value = v;
+
             left = nullptr;
             right = nullptr;
         }
 
-        Node(T* data) {
-            this->data = data;
-            left = nullptr;
-            right = nullptr;
+        Node(Node<K, V>& n) {
+            this->key = n.key;
+            this->value = n.value;
+            this->left = n.left;
+            this->right = n.right;
         }
 
-        Node(T* data, Node<T>* left, Node<T>* right) {
-            this->data = data;
-            this->left = left;
-            this->right = right;
+        Node(Node<K, V>&& n) {
+            this->key = n.key;
+            this->value = n.value;
+            this->left = n.left;
+            this->right = n.right;
+
+            n.key = nullptr;
+            n.value = nullptr;
+            n.left = nullptr;
+            n.right = nullptr;
         }
 
-        Node(Node<T>& other) {
-            this->data = other.data;
-            this->left = other.left;
-            this->right = other.right;
+        Node<K, V>& operator=(Node<K, V>& n) {
+            this->key = n.key;
+            this->value = n.value;
+            this->left = n.left;
+            this->right = n.right;
+            return *this;
         }
 
-        Node(Node<T>&& other) {
-            this->data = other.data;
-            this->left = other.left;
-            this->right = other.right;
-
-            other.data = nullptr;
-            other.left = nullptr;
-            other.right = nullptr;
+        Node<K, V>&& operator=(Node<K, V>&& n) {
+            this->key = n.key;
+            this->value = n.value;
+            this->left = n.left;
+            this->right = n.right;
+            n.key = nullptr;
+            n.value = nullptr;
+            n.left = nullptr;
+            n.right = nullptr;
+            return *this;
         }
 
         ~Node() {
-            this->data = nullptr;
-            this->left = nullptr;
-            this->right = nullptr;
+            key = nullptr;
+            value = nullptr;
+            left = nullptr;
+            right = nullptr;
         }
 
-        Node<T>& operator=(Node<T>& other) {
-            this->data = other.data;
-            this->left = other.left;
-            this->right = other.right;
+        bool operator>=(Node<K, V> n) {
+            unsigned long long hashA = hasher.hash(new Hashable<K>(key));
+            unsigned long long hashB = hasher.hash(new Hashable<K>(n.key));
 
-            return *this;
+            return hashA >= hashB;
         }
 
-        Node<T>&& operator=(Node<T>&& other) {
-            this->data = other.data;
-            this->left = other.left;
-            this->right = other.right;
+        bool operator<(Node<K, V> n) {
+            unsigned long long hashA = hasher.hash(new Hashable<K>(key));
+            unsigned long long hashB = hasher.hash(new Hashable<K>(n.key));
 
-            other.data = nullptr;
-            other.left = nullptr;
-            other.right = nullptr;
-
-            return *this;
-        }
-
-        bool operator==(Node<T> other) {
-            return *other.data == *this->data;
-        }
-
-        bool operator!=(Node<T> other) {
-            return !(*other.data == *this->data);
-        }
-
-        bool operator>(Node<T> other) {
-            return *this->data > *other.data;
-        }
-
-        bool operator<(Node<T> other) {
-            return *this->data < *other.data;
+            return hashA < hashB;
         }
     };
 
-    template <class T>
-    class BinaryTree {
+    /// @brief Binary tree data structure
+    /// @param K The type of the key
+    /// @param V The type of the value
+    template <class K, class V>
+    class Tree {
     private:
-        Node<T>* root;
+        Node<K, V>* root;
 
     public:
-        BinaryTree() {
+        Tree() {
             root = nullptr;
         }
 
-        BinaryTree(T* rootData) {
-            root = new Node<T>(rootData);
-        }
+        /// @brief Check if the tree contains a certain key.
+        /// @param k The key to search for
+        /// @return Whether or not the tree contains the given key
+        bool contains(K k) {
+            if (root == nullptr) return false;
 
-        BinaryTree(Node<T>* root) {
-            this->root = root;
-        }
+            LinkedStack<Node<K, V>*> stack;
+            stack.push(root);
 
-        BinaryTree(BinaryTree<T>& t) {
-            this->root = t.root;
-        }
+            while (!stack.is_empty()) {
+                std::cout << stack.get_length() << std::endl;
+                Node<K, V>* n = stack.pop();
+                
+                std::cout << "Popped" << std::endl;
 
-        BinaryTree(BinaryTree<T>&& t) {
-            this->root = t.root;
-            delete t.root;
-        }
-
-        ~BinaryTree() {
-            delete root;
-        }
-
-        BinaryTree<T>& operator=(BinaryTree<T>& t) {
-            this->root = t.root;
-            return *this;
-        }
-
-        BinaryTree<T>&& operator=(BinaryTree<T>&& t) {
-            this->root = t.root;
-            delete t.root;
-            return *this;
-        }
-
-        bool contains(T* v) {
-            Node<T>* n = new Node<T>(v);
-            Node<T>* current_node = root;
-
-            while (current_node != nullptr && *current_node != *n) {
-                if (*n > *current_node) {
-                    current_node = current_node->right;
+                if (*n->key == k) {
+                    std::cout << "Is eq" << std::endl;
+                    return true;
                 }
-                else {
-                    current_node = current_node->left;
+
+                std::cout << "Is not eq" << std::endl;
+
+                std::cout << n->left << " " << n->right << std::endl;
+                
+                if (n->left != nullptr) { 
+                    stack.push(n->left);
+                    std::cout << "Pushed left" << std::endl;
+                }
+
+                if (n->right != nullptr) { 
+                    stack.push(n->right);
+                    std::cout << "Pushed right" << std::endl;
                 }
             }
 
-            return current_node != nullptr;
+            return false;
         }
 
-        void insert(T* data) {
-            // Please end my suffering, this method is gonna kill me
-            // I stg.
-
-            Node<T>* n = new Node<T>(data);
+        /// @brief Insert a new node into the tree
+        /// @param k The key attached to the new node
+        /// @param v The value attached to the new node
+        void insert(K k, V v) {
+            Node<K, V>* newNode = new Node<K, V>(k, v);
 
             if (root == nullptr) {
-                root = n;
+                root = newNode;
                 return;
             }
 
-            Node<T>* current_node = root;
-            while (current_node != nullptr) {
-                if (*n > *current_node) {
-                    if (current_node->right == nullptr) {
-                        current_node->right = n;
+            Node<K, V>* n = root;
+            while (n != nullptr) {
+                if (*newNode >= *n) {
+                    if (n->right == nullptr) {
+                        n->right = newNode;
                         return;
                     }
                     else {
-                        current_node = current_node->right;
-                    }
-                }
-                else if (*n < *current_node) {
-                    if (current_node->left == nullptr) {
-                        current_node->left = n;
-                        return;
-                    }
-                    else {
-                        current_node = current_node->left;
+                        n = n->right;
                     }
                 }
                 else {
-                    return;
+                    if (n->left == nullptr) {
+                        n->left = newNode;
+                        return;
+                    }
+                    else {
+                        n = n->left;
+                    }
                 }
             }
         }
 
-        BinaryTree<T>* remove_left() {
-            BinaryTree<T>* left = left_subtree();
-            root->left = nullptr;
-            return left;
-        }
+        void depth_for_each(void (*f)(int, K, V)) {
+            if (root == nullptr) return;
 
-        BinaryTree<T>* remove_right() {
-            BinaryTree<T>* right = right_subtree();
-            root->right = nullptr;
-            return right;
-        }
-
-        BinaryTree<T>* left_subtree() {
-            return new BinaryTree<T>(root->left);
-        }
-
-        BinaryTree<T>* right_subtree() {
-            return new BinaryTree<T>(root->right);
-        }
-
-        void depth_for_each(void (*f)(int, T)) {
-            LinkedStack<Node<T>*> stack;
-            ChainingHashMap<T, bool> discovered;
-            int i = 0;
-            f(i, *root->data); i++;
-
+            LinkedStack<Node<K, V>*> stack;
             stack.push(root);
-            discovered.insert(new Hashable<T>(root->data), true);
+            int i = 0;
 
             while (!stack.is_empty()) {
-                Node<T>* current = *(stack.peek());
-
-                if (current->left != nullptr && !discovered.contains(new Hashable<T>(current->left->data))) {
-                    f(i, *current->left->data); i++;
-                    stack.push(current->left);
-                    discovered.insert(new Hashable<T>(current->left->data), true);
-                }
-                
-                if (current->right != nullptr && !discovered.contains(new Hashable<T>(current->right->data))) {
-                    f(i, *current->right->data); i++;
-                    stack.push(current->right);
-                    discovered.insert(new Hashable<T>(current->right->data), true);
-                }
-
-                if (current->left == nullptr && current->right == nullptr) {
-                    Node<T>** out;
-                    if (!stack.pop(&out)) {
-                        exit(-1);
-                    }
-                }
+                Node<K, V>* n = stack.pop();
+                f(i, *n->key, *n->value);
+                stack.push(n->left);
+                stack.push(n->right);
+                i++;
             }
         }
 
-        void breadth_for_each(void (*f)(int, T)) {
-            LinkedQueue<Node<T>*> queue;
-            ChainingHashMap<T, bool> discovered;
-            int i = 0;
-            f(i, root->data); i++;
+        void breadth_for_each(void (*f)(int, K, V)) {
+            if (root == nullptr) return;
 
+            LinkedQueue<Node<K, V>*> queue;
             queue.push(root);
-            discovered.insert(new Hashable<T>(&root->data), true);
+            int i = 0;
 
             while (!queue.is_empty()) {
-                Node<T>* current = *(queue.peek());
-
-                if (current->left != nullptr && !discovered.contains(new Hashable<T>(&current->left->data))) {
-                    f(i, *current->left->data); i++;
-                    queue.push(current->left);
-                    discovered.insert(new Hashable<T>(&current->left->data));
-                }
-
-                if (current->right != nullptr && !discovered.contains(new Hashable<T>(&current->right->data))) {
-                    f(i, *current->right->data); i++;
-                    queue.push(current->right);
-                    discovered.insert(new Hashable<T>(&current->right->data));
-                }
-
-                if (current->left == nullptr && current->right == nullptr) {
-                    Node<T>** out;
-                    if (!queue.pop(&out)) {
-                        exit(-1);
-                    }
-                }
+                Node<K, V>* n = queue.pop();
+                f(i, *n->key, *n->value);
+                queue.push(n->left);
+                queue.push(n->right);
+                i++;
             }
         }
     };

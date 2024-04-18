@@ -185,6 +185,7 @@ CMakeFiles/DSALab6.dir/Lab6/src/test.cpp.o: Lab6/src/test.cpp \
   Lab6/include/BinaryTree.hpp \
   Lab3/include/LinkedStack.hpp \
   Lab2/include/LinkedList.hpp \
+  /usr/include/c++/11/stdlib.h \
   Lab3/include/LinkedQueue.hpp \
   Lab5/include/ChainingHashMap.hpp \
   Lab4/include/ArrayMap.hpp \
@@ -192,7 +193,6 @@ CMakeFiles/DSALab6.dir/Lab6/src/test.cpp.o: Lab6/src/test.cpp \
   /usr/include/c++/11/cstring \
   /usr/include/string.h \
   /usr/include/strings.h \
-  /usr/include/c++/11/stdlib.h \
   Lab4/include/BinarySearch.hpp \
   Lab5/include/HashFunction.hpp \
   /usr/include/c++/11/ctime \
@@ -281,8 +281,6 @@ Lab5/include/HashFunction.hpp:
 
 Lab4/include/BinarySearch.hpp:
 
-/usr/include/c++/11/stdlib.h:
-
 /usr/include/string.h:
 
 /usr/include/c++/11/cstring:
@@ -290,6 +288,8 @@ Lab4/include/BinarySearch.hpp:
 Lab5/include/ChainingHashMap.hpp:
 
 Lab3/include/LinkedQueue.hpp:
+
+/usr/include/c++/11/stdlib.h:
 
 Testing/include/Testing.hpp:
 

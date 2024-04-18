@@ -11,11 +11,11 @@ public:
     V value;
 
     MapRecord() {
-        K* pK = (K*) malloc(sizeof(K));
+        /*K* pK = (K*) malloc(sizeof(K));
         V* pV = (V*) malloc(sizeof(V));
 
         key = *pK;
-        value = *pV;
+        value = *pV;*/
     }
 
     MapRecord(K key, V value) {
