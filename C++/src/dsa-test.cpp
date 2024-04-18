@@ -1,18 +1,27 @@
+#if defined(WIN32) || defined(_WIN32) || defined(__WIN32__) || defined(__NT__)
+    const char* exec[] = {
+        "start ./Lab2/build/DSALab2.exe",
+        "start ./Lab3/build/DSALab3.exe",
+        "start ./Lab4/build/DSALab4.exe",
+        "start ./Lab5/build/DSALab5.exe",
+        "start ./Lab6/build/DSALab6.exe",
+    };
+#else
+    const char* exec[] = {
+        "./Lab2/build/DSALab2",
+        "./Lab3/build/DSALab3",
+        "./Lab4/build/DSALab4",
+        "./Lab5/build/DSALab5",
+        "./Lab6/build/DSALab6",
+    };
+#endif
+
 #include <iostream>
 
 int main() {
-    std::cout << "\n\n\033[3;95mLab2 tests\033[0m" << std::endl;
-    system("./Lab2/build/DSALab2");
-
-    std::cout << "\n\n\033[3;95mLab3 tests\033[0m" << std::endl;
-    system("./Lab3/build/DSALab3");
-
-    std::cout << "\n\n\033[3;95mLab4 tests\033[0m" << std::endl;
-    system("./Lab4/build/DSALab4");
-
-    std::cout << "\n\n\033[3;95mLab5 tests\033[0m" << std::endl;
-    system("./Lab5/build/DSALab5");
-
-    std::cout << "\n\n\033[3;95mLab6 tests\033[0m" << std::endl;
-    system("./Lab6/build/DSALab6");
+    for (int i = 0; i < 6; i++) {
+        std::cout << "\n\n\033[3;95mLab" << i << " tests\033[0m" << std::endl;
+        std::cout << exec[i] << std::endl;
+        system(exec[i]);
+    }
 }
