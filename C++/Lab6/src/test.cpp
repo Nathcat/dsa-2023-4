@@ -42,12 +42,7 @@ int main() {
             tree.insert(*(keys + i), i);
         }
 
-        tree.depth_for_each([](int i, const char* k, int v) {
-            std::cout << k << ": " << v << std::endl;
-        });
-
         int r = rand() % 5;
-        std::cout << keys[r] << std::endl;
         return create_pair(true, tree.contains(keys[r]));
     }, is_eq);
 

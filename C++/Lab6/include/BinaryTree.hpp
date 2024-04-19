@@ -115,28 +115,18 @@ namespace BinaryTree {
             stack.push(root);
 
             while (!stack.is_empty()) {
-                std::cout << stack.get_length() << std::endl;
                 Node<K, V>* n = stack.pop();
                 
-                std::cout << "Popped" << std::endl;
-
                 if (*n->key == k) {
-                    std::cout << "Is eq" << std::endl;
                     return true;
                 }
 
-                std::cout << "Is not eq" << std::endl;
-
-                std::cout << n->left << " " << n->right << std::endl;
-                
                 if (n->left != nullptr) { 
                     stack.push(n->left);
-                    std::cout << "Pushed left" << std::endl;
                 }
 
                 if (n->right != nullptr) { 
                     stack.push(n->right);
-                    std::cout << "Pushed right" << std::endl;
                 }
             }
 
@@ -187,8 +177,9 @@ namespace BinaryTree {
             while (!stack.is_empty()) {
                 Node<K, V>* n = stack.pop();
                 f(i, *n->key, *n->value);
-                stack.push(n->left);
-                stack.push(n->right);
+                
+                if (n->left != nullptr) stack.push(n->left);
+                if (n->right != nullptr) stack.push(n->right);
                 i++;
             }
         }
@@ -203,8 +194,8 @@ namespace BinaryTree {
             while (!queue.is_empty()) {
                 Node<K, V>* n = queue.pop();
                 f(i, *n->key, *n->value);
-                queue.push(n->left);
-                queue.push(n->right);
+                if (n->left != nullptr) queue.push(n->left);
+                if (n->right != nullptr) queue.push(n->right);
                 i++;
             }
         }

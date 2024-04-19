@@ -4,47 +4,47 @@
 #include <stdlib.h>
 
 template <class T>
-class SingleNode {
+class SinglyLinkedNode {
 public:
     T* value;
-    SingleNode<T>* next;
+    SinglyLinkedNode<T>* next;
 
-    SingleNode() {
+    SinglyLinkedNode() {
         value = nullptr;
         next = nullptr;
     }
 
-    SingleNode(T value) {
+    SinglyLinkedNode(T value) {
         this->value = (T*) malloc(sizeof(T));
         *this->value = value;
         next = nullptr;
     }
 
-    SingleNode(T value, SingleNode<T>* next) {
+    SinglyLinkedNode(T value, SinglyLinkedNode<T>* next) {
         this->value = (T*) malloc(sizeof(T));
         *this->value = value;
         this->next = next;
     }
 
-    SingleNode(SingleNode<T>& n) {
+    SinglyLinkedNode(SinglyLinkedNode<T>& n) {
         this->value = n.value;
         this->next = n.next;
     }
 
-    SingleNode(SingleNode<T>&& n) {
+    SinglyLinkedNode(SinglyLinkedNode<T>&& n) {
         this->value = n.value;
         this->next = n.next;
         n.value = nullptr;
         n.next = nullptr;
     }
 
-    SingleNode<T>& operator=(SingleNode<T>& n) {
+    SinglyLinkedNode<T>& operator=(SinglyLinkedNode<T>& n) {
         this->value = n.next;
         this->next = n.next;
         return *this;
     }
 
-    SingleNode<T>&& operator=(SingleNode<T>&& n) {
+    SinglyLinkedNode<T>&& operator=(SinglyLinkedNode<T>&& n) {
         this->value = n.value;
         this->next = n.next;
         n.value = nullptr;
@@ -54,14 +54,80 @@ public:
 };
 
 template <class T>
+class DoublyLinkedNode {
+public:
+    T* value;
+    DoublyLinkedNode<T>* prev;
+    DoublyLinkedNode<T>* next;
+
+    DoublyLinkedNode() {
+        value = nullptr;
+        prev = nullptr;
+        next = nullptr;
+    }
+
+    DoublyLinkedNode(T v) {
+        value = (T*) malloc(sizeof(T));
+        *value = value;
+        prev = nullptr;
+        next = nullptr;
+    }
+
+    DoublyLinkedNode(T v, DoublyLinkedNode<T>* prev, DoublyLinkedNode<T>* next) {
+        value = (T*) malloc(sizeof(T));
+        *value = value;
+        this->prev = prev;
+        this->next = next;
+    }
+
+    ~DoublyLinkedNode() {
+        value = nullptr;
+        prev = nullptr;
+        next = nullptr;
+    }
+
+    DoublyLinkedNode(DoublyLinkedNode<T>& n) {
+        value = n.value;
+        prev = n.prev;
+        next = n.prev;
+    }
+
+    DoublyLinkedNode(DoublyLinkedNode<T>&& n) {
+        value = n.value;
+        prev = n.prev;
+        next = n.next;
+        n.value = nullptr;
+        n.prev = nullptr;
+        n.next = nullptr;
+    }
+
+    DoublyLinkedNode<T>& operator=(DoublyLinkedNode<T>& n) {
+        value = n.value;
+        prev = n.prev;
+        next = n.prev;
+        return *this;
+    }
+
+    DoublyLinkedNode<T>&& operator=(DoublyLinkedNode<T>&& n) {
+        value = n.value;
+        prev = n.prev;
+        next = n.prev;
+        n.value = nullptr;
+        n.prev = nullptr;
+        n.next = nullptr;
+        return *this;
+    }
+};
+
+template <class T>
 class LinkedList {
 private:
-    SingleNode<T>* first_node = nullptr;
-    SingleNode<T>* last_node = nullptr;
+    SinglyLinkedNode<T>* first_node = nullptr;
+    SinglyLinkedNode<T>* last_node = nullptr;
     int length = 0;
 
-    SingleNode<T>* get_node(int i) {
-        SingleNode<T>* current_node = first_node;
+    SinglyLinkedNode<T>* get_node(int i) {
+        SinglyLinkedNode<T>* current_node = first_node;
         int index = 0;
 
         while (index != i) {
@@ -73,7 +139,7 @@ private:
     }
 
     void reset_last_node() {
-        SingleNode<T>* n = first_node;
+        SinglyLinkedNode<T>* n = first_node;
         while (n->next != nullptr) {
             n = n->next;
         }
@@ -116,7 +182,7 @@ public:
     /// @param item The item to search for.
     /// @return Whether or not the list contains the given item.
     bool contains(T item) {
-        SingleNode<T>* current_node = first_node;
+        SinglyLinkedNode<T>* current_node = first_node;
         while (current_node != nullptr) {
             if (*(current_node->value) == item) return true;
 
@@ -150,7 +216,7 @@ public:
         // Because of the final condition it is not possible for
         // the first node to be nullptr here, and the requested
         // index will be within the range of the list.
-        SingleNode<T>* current_node = first_node;
+        SinglyLinkedNode<T>* current_node = first_node;
         int index = 0;
 
         while (index != i) {
@@ -183,7 +249,7 @@ public:
         if (is_empty()) throw LIST_IS_EMPTY;
         if (i >= length || i < 0) throw INDEX_ERROR;
 
-        SingleNode<T>* current_node = first_node;
+        SinglyLinkedNode<T>* current_node = first_node;
         int index = 0;
 
         while (index != i) {
@@ -214,15 +280,15 @@ public:
     void insert_at(int i, T item) {
         if (i > length || i < 0) throw INDEX_ERROR;
         if (i == 0) {
-            SingleNode<T>* n = new SingleNode<T>(item, first_node);
+            SinglyLinkedNode<T>* n = new SinglyLinkedNode<T>(item, first_node);
             first_node = n;
             length++;
             reset_last_node();
             return;
         }
 
-        SingleNode<T>* prev = get_node(i - 1);
-        SingleNode<T>* n = new SingleNode<T>(item, prev->next);
+        SinglyLinkedNode<T>* prev = get_node(i - 1);
+        SinglyLinkedNode<T>* n = new SinglyLinkedNode<T>(item, prev->next);
         prev->next = n;
         length++;
         reset_last_node();
@@ -256,7 +322,7 @@ public:
             return *d;
         }
 
-        SingleNode<T>* n = first_node;
+        SinglyLinkedNode<T>* n = first_node;
         int index = 0;
         
         while (index != i-1) {
@@ -276,9 +342,9 @@ public:
         return remove_at(length - 1);
     }
 
-    void for_each(void (*f)(int, SingleNode<T>*)) {
+    void for_each(void (*f)(int, SinglyLinkedNode<T>*)) {
         int i = 0;
-        SingleNode<T>* n = first_node;
+        SinglyLinkedNode<T>* n = first_node;
 
         while (n != nullptr) {
             f(i++, n);
@@ -288,13 +354,131 @@ public:
 
     void for_each(void (*f)(int, T)) {
         int i = 0; 
-        SingleNode<T>* n = first_node;
+        SinglyLinkedNode<T>* n = first_node;
 
         while (n != nullptr) {
             f(i++, *(n->value));
             n = n->next;
         }
     }
+};
+
+
+template <class T>
+class DoublyLinkedList {
+private:
+    DoublyLinkedNode<T>* first_node;
+    DoublyLinkedNode<T>* last_node;
+    int length = 0;
+
+public:
+    static const int LIST_IS_EMPTY = 201;
+    static const int INDEX_ERROR = 202;
+
+    DoublyLinkedList() {
+        first_node = nullptr;
+        last_node = nullptr;
+    }
+
+    /// @brief Build a new linked list from an existing set of items
+    /// @param items The set of items
+    /// @param n The number of items in the set
+    /// @return The new list
+    static DoublyLinkedList<T> build(T* items, int n) { throw 100; }
+
+    /// @brief Get the length of the linked list
+    /// @return The length of the list
+    int get_length() {
+        return length;
+    }
+
+    /// @brief Check whether the list contains a certain item
+    /// @param item The item to search for
+    /// @return Whether or not the list contains the given item
+    bool contains(T item) {
+        DoublyLinkedNode<T>* n = first_node;
+        while (n != nullptr) {
+            if (*n->value == item) return true;
+
+            n = n->next;
+        }
+
+        return false;
+    }
+
+    /// @brief Check if the list is empty
+    /// @return Whether or not the list is empty
+    bool is_empty() {
+        return length == 0;
+    }
+
+    /// @brief Get the first item in the list
+    /// @return The first item in the list
+    /// @throws LIST_IS_EMPTY
+    T get_first() {
+        return get_at(0);
+    }
+
+    /// @brief Get the item at the given index in the list
+    /// @param i The index of the item
+    /// @return The item at index i
+    /// @throws LIST_IS_EMPTY and INDEX_ERROR
+    T get_at(int i) {
+        if (is_empty()) throw LIST_IS_EMPTY;
+        if (i < 0 || i >= length) throw INDEX_ERROR;
+
+        if (i > length / 2) {
+            // Move backwards through the list
+            DoublyLinkedNode<T>* n = last_node;
+            int ind = length - 1;
+            while (ind != i) {
+                n = n->prev;
+                ind--;
+            }
+
+            return *n->value;
+        }
+        else {
+            // Move forwards through the list
+            DoublyLinkedNode<T>* n = first_node;
+            int ind = 0;
+            while (ind != i) {
+                n = n->next;
+                ind++;
+            }
+
+            return *n->value;
+        }
+    }
+
+    /// @brief Get the item at the end of the list
+    /// @return The item at the end of the list
+    /// @throws LIST_IS_EMPTY
+    T get_last() {
+        return get_at(length - 1);
+    }
+
+    void set_first(T item) {}
+
+    void set_at(int i, T item) {}
+
+    void set_last(T item) {}
+
+    void insert_first(T item) {}
+
+    void insert_at(int i, T item) {}
+
+    void insert_last(int i, T item) {}
+
+    T remove_first() {}
+
+    T remove_at(int i) {}
+
+    T remove_last() {}
+
+    void for_each(void (*f)(int, DoublyLinkedNode<T>*)) {}
+
+    void for_each(void (*f)(int, T)) {}
 };
 
 #endif
