@@ -2,3 +2,4 @@ __pycache__/
 /.idea/
 /labs/.idea/.gitignore
 /labs/.idea/*.[ix]ml
+*.code-workspace
