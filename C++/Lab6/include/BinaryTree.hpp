@@ -173,6 +173,38 @@ namespace BinaryTree {
             recount_length();
         }
 
+        Tree(Tree<K, V>& t) {
+            root = t.root;
+            length = t.length;
+        }
+
+        Tree(Tree<K, V>&& t) {
+            root = t.root;
+            length = t.length;
+            t.root = nullptr;
+        }
+
+        Tree<K, V>& operator=(Tree<K, V>& t) {
+            root = t.root;
+            length = t.length;
+            return *this;
+        }
+
+        Tree<K, V>&& operator=(Tree<K, V>&& t) {
+            root = t.root;
+            length = t.length;
+            t.root = nullptr;
+            return *this;
+        }
+
+        ~Tree() {
+            root = nullptr;
+        }
+
+        Node<K, V>* get_root() {
+            return root;
+        }
+
         /// @brief Check if the tree contains a certain key.
         /// @param k The key to search for
         /// @return Whether or not the tree contains the given key

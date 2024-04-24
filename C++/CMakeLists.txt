@@ -33,6 +33,9 @@ add_library(DSALabs-2024 SHARED
 
     # Lab 6 sources
     Lab6/include/BinaryTree.hpp
+
+    # Lab 8 sources
+    Lab8/include/AVLTree.hpp
 )
 
 target_include_directories(DSALabs-2024 PUBLIC
@@ -41,6 +44,7 @@ target_include_directories(DSALabs-2024 PUBLIC
     Lab4/include
     Lab5/include
     Lab6/include
+    Lab8/include
 )
 
 set_target_properties(DSALabs-2024 PROPERTIES
@@ -121,4 +125,19 @@ target_link_libraries(DSALab6 DSALabs-2024)
 
 set_target_properties(DSALab6 PROPERTIES
     RUNTIME_OUTPUT_DIRECTORY Lab6/build
+)
+
+#
+#   Lab 8 tests
+#   Compile lab 8 tests executable
+#
+project(DSALab8)
+
+add_executable(DSALab8 Lab8/src/test.cpp)
+
+target_include_directories(DSALab8 PUBLIC Lab8/include Testing/include)
+target_link_libraries(DSALab8 DSALabs-2024)
+
+set_target_properties(DSALab8 PROPERTIES
+    RUNTIME_OUTPUT_DIRECTORY Lab8/build
 )
